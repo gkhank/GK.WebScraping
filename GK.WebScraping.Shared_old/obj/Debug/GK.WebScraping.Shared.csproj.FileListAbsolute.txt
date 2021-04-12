@@ -1,0 +1,5 @@
+D:\Projects\GK.WebScraping\GK.WebScraping.Shared\bin\Debug\GK.WebScraping.Shared.dll
+D:\Projects\GK.WebScraping\GK.WebScraping.Shared\bin\Debug\GK.WebScraping.Shared.pdb
+D:\Projects\GK.WebScraping\GK.WebScraping.Shared\obj\Debug\GK.WebScraping.Shared.csproj.CoreCompileInputs.cache
+D:\Projects\GK.WebScraping\GK.WebScraping.Shared\obj\Debug\GK.WebScraping.Shared.dll
+D:\Projects\GK.WebScraping\GK.WebScraping.Shared\obj\Debug\GK.WebScraping.Shared.pdb

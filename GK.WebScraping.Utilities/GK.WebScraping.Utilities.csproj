@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GK.WebScraping.DB\GK.WebScraping.DB.csproj" />
+    <ProjectReference Include="..\GK.WebScraping.Model\GK.WebScraping.Model.csproj" />
+  </ItemGroup>
+
+</Project>

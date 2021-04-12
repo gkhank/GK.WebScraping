@@ -1,0 +1,12 @@
+D:\Projects\GK.Stock.Sniper\GK.WebScraping.Mapper.Service\bin\Release\GK.WebScraping.Mapper.Service.exe.config
+D:\Projects\GK.Stock.Sniper\GK.WebScraping.Mapper.Service\bin\Release\GK.WebScraping.Mapper.Service.exe
+D:\Projects\GK.Stock.Sniper\GK.WebScraping.Mapper.Service\bin\Release\GK.WebScraping.Mapper.Service.pdb
+D:\Projects\GK.Stock.Sniper\GK.WebScraping.Mapper.Service\obj\Release\GK.WebScraping.Mapper.Service.csproj.CoreCompileInputs.cache
+D:\Projects\GK.Stock.Sniper\GK.WebScraping.Mapper.Service\obj\Release\GK.WebScraping.Mapper.Service.exe
+D:\Projects\GK.Stock.Sniper\GK.WebScraping.Mapper.Service\obj\Release\GK.WebScraping.Mapper.Service.pdb
+D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Release\GK.WebScraping.Mapper.Service.exe.config
+D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Release\GK.WebScraping.Mapper.Service.exe
+D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Release\GK.WebScraping.Mapper.Service.pdb
+D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Release\GK.WebScraping.Mapper.Service.csproj.CoreCompileInputs.cache
+D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Release\GK.WebScraping.Mapper.Service.exe
+D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Release\GK.WebScraping.Mapper.Service.pdb

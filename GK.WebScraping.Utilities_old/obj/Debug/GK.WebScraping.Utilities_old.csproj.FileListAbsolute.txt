@@ -1,0 +1,14 @@
+D:\Projects\GK.WebScraping\GK.WebScraping.Utilities_old\obj\Debug\GK.WebScraping.Utilities_old.csprojAssemblyReference.cache
+D:\Projects\GK.WebScraping\GK.WebScraping.Utilities_old\obj\Debug\GK.WebScraping.Utilities_old.csproj.CoreCompileInputs.cache
+D:\Projects\GK.WebScraping\GK.WebScraping.Utilities_old\bin\Debug\GK.WebScraping.Utilities_old.dll.config
+D:\Projects\GK.WebScraping\GK.WebScraping.Utilities_old\bin\Debug\GK.WebScraping.Utilities_old.dll
+D:\Projects\GK.WebScraping\GK.WebScraping.Utilities_old\bin\Debug\GK.WebScraping.Utilities_old.pdb
+D:\Projects\GK.WebScraping\GK.WebScraping.Utilities_old\bin\Debug\EntityFramework.dll
+D:\Projects\GK.WebScraping\GK.WebScraping.Utilities_old\bin\Debug\EntityFramework.SqlServer.dll
+D:\Projects\GK.WebScraping\GK.WebScraping.Utilities_old\bin\Debug\GK.WebScraping.Shared.dll
+D:\Projects\GK.WebScraping\GK.WebScraping.Utilities_old\bin\Debug\GK.WebScraping.Shared.pdb
+D:\Projects\GK.WebScraping\GK.WebScraping.Utilities_old\bin\Debug\EntityFramework.xml
+D:\Projects\GK.WebScraping\GK.WebScraping.Utilities_old\bin\Debug\EntityFramework.SqlServer.xml
+D:\Projects\GK.WebScraping\GK.WebScraping.Utilities_old\obj\Debug\GK.WebScraping.Utilities_old.csproj.CopyComplete
+D:\Projects\GK.WebScraping\GK.WebScraping.Utilities_old\obj\Debug\GK.WebScraping.Utilities_old.dll
+D:\Projects\GK.WebScraping\GK.WebScraping.Utilities_old\obj\Debug\GK.WebScraping.Utilities_old.pdb

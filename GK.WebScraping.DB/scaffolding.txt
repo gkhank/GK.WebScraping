@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext "Server=localhost;Database=WebScraping;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Model\WebScraping -Context "WebScrapingContext"
