@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GK.WebScraping.DB", "GK.WebScraping.DB\GK.WebScraping.DB.csproj", "{DF0225F5-CCD2-4492-A19F-837312FDE17D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GK.WebScraping.DB", "GK.WebScraping.DB\GK.WebScraping.DB.csproj", "{DF0225F5-CCD2-4492-A19F-837312FDE17D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GK.WebScraping.Mapper.Service", "GK.WebScraping.Mapper.Service\GK.WebScraping.Mapper.Service.csproj", "{4557AC39-93F2-4FA4-8451-103C9389FB82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GK.WebScraping.Mapper.Service", "GK.WebScraping.Mapper.Service\GK.WebScraping.Mapper.Service.csproj", "{4557AC39-93F2-4FA4-8451-103C9389FB82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GK.WebScraping.App", "GK.WebScraping.App\GK.WebScraping.App.csproj", "{62FC01DB-2B8D-4325-952C-C0671518F44F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GK.WebScraping.App", "GK.WebScraping.App\GK.WebScraping.App.csproj", "{62FC01DB-2B8D-4325-952C-C0671518F44F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GK.WebScraping.Model", "GK.WebScraping.Model\GK.WebScraping.Model.csproj", "{EA5CADF0-B83D-4301-9CFB-9ABE2B6C0377}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GK.WebScraping.Model", "GK.WebScraping.Model\GK.WebScraping.Model.csproj", "{EA5CADF0-B83D-4301-9CFB-9ABE2B6C0377}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GK.WebScraping.Utilities", "GK.WebScraping.Utilities\GK.WebScraping.Utilities.csproj", "{5EB46A17-F8DF-4701-82D6-9E867C010D84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GK.WebScraping.Utilities", "GK.WebScraping.Utilities\GK.WebScraping.Utilities.csproj", "{5EB46A17-F8DF-4701-82D6-9E867C010D84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GK.WebScraping.Test", "GK.WebScraping.Test\GK.WebScraping.Test.csproj", "{D9AE7B62-CF72-4993-9660-F8D12EF10049}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{5EB46A17-F8DF-4701-82D6-9E867C010D84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EB46A17-F8DF-4701-82D6-9E867C010D84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EB46A17-F8DF-4701-82D6-9E867C010D84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9AE7B62-CF72-4993-9660-F8D12EF10049}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9AE7B62-CF72-4993-9660-F8D12EF10049}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9AE7B62-CF72-4993-9660-F8D12EF10049}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9AE7B62-CF72-4993-9660-F8D12EF10049}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

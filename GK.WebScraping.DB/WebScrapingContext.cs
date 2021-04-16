@@ -27,8 +27,7 @@ namespace GK.WebScraping.DB
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=localhost;Database=WebScraping;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=ec2-13-48-31-67.eu-north-1.compute.amazonaws.com;Database=WebScraping;User Id=SQL_Application;Password=*lZ[}0mB]*)00(o;");
             }
         }
 
