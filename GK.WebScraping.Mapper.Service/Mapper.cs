@@ -21,12 +21,6 @@ namespace GK.WebScraping.Mapper.Service
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            //List<String> urls =
-            //    DatabaseManager.Instance.Pages
-            //    .Where(x => x.MapStatus == (Int32)StatusType.None)
-            //    .Select(x => x.Url)
-            //    .ToList();
-
             //Start mapping from root...
             List<String> rootUrls =
                 DatabaseManager.Instance.Stores
@@ -36,7 +30,6 @@ namespace GK.WebScraping.Mapper.Service
 
             while (!stoppingToken.IsCancellationRequested)
             {
-
                 await Task.Delay(1000, stoppingToken);
             }
         }
