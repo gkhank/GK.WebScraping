@@ -21,4 +21,12 @@ namespace GK.WebScraping.Model
         Active = 1,
         Deleted = 16
     }
+
+    public enum MapStatusType
+    {
+        None,
+        ContentReady,
+        LinksRead,
+        Mapped
+    }
 }

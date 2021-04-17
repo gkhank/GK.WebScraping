@@ -14,7 +14,8 @@ namespace GK.WebScraping.Mapper.Service
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddHostedService<Mapper>();
+                    //services.AddHostedService<Mapper>();
+                    services.AddHostedService<Reader>();
                 });
     }
 }

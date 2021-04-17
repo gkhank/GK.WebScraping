@@ -11,7 +11,7 @@ namespace GK.WebScraping.Test
         [TestMethod]
         public void TestConnection()
         {
-            Store[] stores = DatabaseManager.Instance.Stores.ToArray();
+            Store[] stores = DatabaseManager.WebScraping.Stores.ToArray();
             Assert.IsNotNull(stores);
         }
     }

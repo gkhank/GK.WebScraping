@@ -15,6 +15,14 @@
           "GK.WebScraping.App.dll": {}
         }
       },
+      "HtmlAgilityPack/1.11.32": {
+        "runtime": {
+          "lib/netstandard2.0/HtmlAgilityPack.dll": {
+            "assemblyVersion": "1.11.32.0",
+            "fileVersion": "1.11.32.0"
+          }
+        }
+      },
       "Microsoft.CSharp/4.5.0": {},
       "Microsoft.Data.SqlClient/2.0.1": {
         "dependencies": {
@@ -1807,7 +1815,8 @@
       "GK.WebScraping.Utilities/1.0.0": {
         "dependencies": {
           "GK.WebScraping.DB": "1.0.0",
-          "GK.WebScraping.Model": "1.0.0"
+          "GK.WebScraping.Model": "1.0.0",
+          "HtmlAgilityPack": "1.11.32"
         },
         "runtime": {
           "GK.WebScraping.Utilities.dll": {}
@@ -1820,6 +1829,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "HtmlAgilityPack/1.11.32": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-c5eNfxPDvQSh7YClPuo+xkD1d5F4Qms4g+MG1UktytdHk/mvCFsbopLIsk+AKqByPmPvSl/xVmyogRBejf0DyQ==",
+      "path": "htmlagilitypack/1.11.32",
+      "hashPath": "htmlagilitypack.1.11.32.nupkg.sha512"
     },
     "Microsoft.CSharp/4.5.0": {
       "type": "package",

@@ -142,3 +142,4 @@ D:\Projects\GK.WebScraping\GK.WebScraping.App\obj\Debug\netcoreapp3.1\GK.WebScra
 D:\Projects\GK.WebScraping\GK.WebScraping.App\obj\Debug\netcoreapp3.1\GK.WebScraping.App.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.App\obj\Debug\netcoreapp3.1\GK.WebScraping.App.pdb
 D:\Projects\GK.WebScraping\GK.WebScraping.App\obj\Debug\netcoreapp3.1\GK.WebScraping.App.genruntimeconfig.cache
+D:\Projects\GK.WebScraping\GK.WebScraping.App\bin\Debug\netcoreapp3.1\HtmlAgilityPack.dll

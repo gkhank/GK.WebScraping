@@ -8,7 +8,7 @@ namespace GK.WebScraping.DB
     {
         private static WebScrapingContext instance = null;
         private static readonly object _lock = new object();
-        public static WebScrapingContext Instance
+        public static WebScrapingContext WebScraping
         {
             get
             {

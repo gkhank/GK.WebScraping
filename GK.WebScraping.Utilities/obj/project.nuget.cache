@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "QwVD6ZxKokJG5Ape6Xyw+qFhQJnxVgWztdTAuBWOOJ9FLEZqpt5zqi+qK81Ado2R4hxxpV3IPbnA33G1w6ruug==",
+  "dgSpecHash": "kkP/8JCZylYUVHwqwV19M9kuWfA6z3W3GJjbXP6NSllApahFiEyMUKfwkXEqMAQITk4iqbX+BUZfnjRT8JmMLQ==",
   "success": true,
   "projectFilePath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Utilities\\GK.WebScraping.Utilities.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\gkhan\\.nuget\\packages\\htmlagilitypack\\1.11.32\\htmlagilitypack.1.11.32.nupkg.sha512",
     "C:\\Users\\gkhan\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\gkhan\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",
     "C:\\Users\\gkhan\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.0.1\\microsoft.data.sqlclient.sni.runtime.2.0.1.nupkg.sha512",

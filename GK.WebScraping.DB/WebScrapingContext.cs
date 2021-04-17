@@ -1,9 +1,12 @@
-﻿using GK.WebScraping.Model;
+﻿using System;
+using GK.WebScraping.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
 namespace GK.WebScraping.DB
+
 {
     public partial class WebScrapingContext : DbContext
     {
@@ -27,7 +30,10 @@ namespace GK.WebScraping.DB
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=ec2-13-48-31-67.eu-north-1.compute.amazonaws.com;Database=WebScraping;User Id=SQL_Application;Password=*lZ[}0mB]*)00(o;");
+                if (Environment.MachineName == "GK-WS1")
+                    optionsBuilder.UseSqlServer("Server=ec2-13-48-31-67.eu-north-1.compute.amazonaws.com;Database=WebScraping;User Id=SQL_Application;Password=*lZ[}0mB]*)00(o;");
+                else
+                    optionsBuilder.UseSqlServer("Server=localhost;Database=WebScraping;Trusted_Connection=True");
             }
         }
 
@@ -100,9 +106,7 @@ namespace GK.WebScraping.DB
                     .ValueGeneratedNever()
                     .HasColumnName("pageID");
 
-                entity.Property(e => e.Content)
-                    .IsRequired()
-                    .HasColumnName("content");
+                entity.Property(e => e.Content).HasColumnName("content");
 
                 entity.Property(e => e.CreateDate)
                     .HasColumnType("datetime")

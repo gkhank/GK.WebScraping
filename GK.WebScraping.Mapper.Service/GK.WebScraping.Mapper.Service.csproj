@@ -6,10 +6,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Mapper.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.13" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\GK.WebScraping.DB\GK.WebScraping.DB.csproj" />
+    <ProjectReference Include="..\GK.WebScraping.Utilities\GK.WebScraping.Utilities.csproj" />
   </ItemGroup>
 </Project>

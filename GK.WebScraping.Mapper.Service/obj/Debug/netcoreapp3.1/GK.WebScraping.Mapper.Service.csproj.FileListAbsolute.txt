@@ -155,8 +155,13 @@ D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Debug\netcoreapp3.1
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Debug\netcoreapp3.1\GK.WebScraping.Mapper.Service.csprojAssemblyReference.cache
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Debug\netcoreapp3.1\GK.WebScraping.Mapper.Service.AssemblyInfoInputs.cache
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Debug\netcoreapp3.1\GK.WebScraping.Mapper.Service.AssemblyInfo.cs
-D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Debug\netcoreapp3.1\GK.WebScraping.Mapper.Service.csproj.CoreCompileInputs.cache
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Debug\netcoreapp3.1\GK.WebScraping.Mapper.Service.csproj.CopyComplete
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Debug\netcoreapp3.1\GK.WebScraping.Mapper.Service.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Debug\netcoreapp3.1\GK.WebScraping.Mapper.Service.pdb
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Debug\netcoreapp3.1\GK.WebScraping.Mapper.Service.genruntimeconfig.cache
+D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Debug\netcoreapp3.1\HtmlAgilityPack.dll
+D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Debug\netcoreapp3.1\GK.WebScraping.Utilities.dll
+D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Debug\netcoreapp3.1\GK.WebScraping.Utilities.pdb
+D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Debug\netcoreapp3.1\Humanizer.dll
+D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
+D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Debug\netcoreapp3.1\GK.WebScraping.Mapper.Service.csproj.CoreCompileInputs.cache

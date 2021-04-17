@@ -21,7 +21,7 @@ namespace GK.WebScraping.Utilities
 
         private void Init()
         {
-            Store[] stores = DatabaseManager.Instance.Stores.ToArray();
+            Store[] stores = DatabaseManager.WebScraping.Stores.ToArray();
             foreach (Store s in stores)
             {
                 this._stores.Add(s.StoreId, s.Name);
