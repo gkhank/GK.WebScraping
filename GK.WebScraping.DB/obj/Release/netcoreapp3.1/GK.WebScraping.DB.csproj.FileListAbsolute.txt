@@ -1,0 +1,15 @@
+D:\Projects\GK.WebScraping\GK.WebScraping.DB\bin\Release\netcoreapp3.1\GK.WebScraping.DB.deps.json
+D:\Projects\GK.WebScraping\GK.WebScraping.DB\bin\Release\netcoreapp3.1\GK.WebScraping.DB.runtimeconfig.json
+D:\Projects\GK.WebScraping\GK.WebScraping.DB\bin\Release\netcoreapp3.1\GK.WebScraping.DB.runtimeconfig.dev.json
+D:\Projects\GK.WebScraping\GK.WebScraping.DB\bin\Release\netcoreapp3.1\GK.WebScraping.DB.dll
+D:\Projects\GK.WebScraping\GK.WebScraping.DB\bin\Release\netcoreapp3.1\GK.WebScraping.DB.pdb
+D:\Projects\GK.WebScraping\GK.WebScraping.DB\bin\Release\netcoreapp3.1\GK.WebScraping.Model.dll
+D:\Projects\GK.WebScraping\GK.WebScraping.DB\bin\Release\netcoreapp3.1\GK.WebScraping.Model.pdb
+D:\Projects\GK.WebScraping\GK.WebScraping.DB\obj\Release\netcoreapp3.1\GK.WebScraping.DB.csprojAssemblyReference.cache
+D:\Projects\GK.WebScraping\GK.WebScraping.DB\obj\Release\netcoreapp3.1\GK.WebScraping.DB.AssemblyInfoInputs.cache
+D:\Projects\GK.WebScraping\GK.WebScraping.DB\obj\Release\netcoreapp3.1\GK.WebScraping.DB.AssemblyInfo.cs
+D:\Projects\GK.WebScraping\GK.WebScraping.DB\obj\Release\netcoreapp3.1\GK.WebScraping.DB.csproj.CoreCompileInputs.cache
+D:\Projects\GK.WebScraping\GK.WebScraping.DB\obj\Release\netcoreapp3.1\GK.WebScraping.DB.csproj.CopyComplete
+D:\Projects\GK.WebScraping\GK.WebScraping.DB\obj\Release\netcoreapp3.1\GK.WebScraping.DB.dll
+D:\Projects\GK.WebScraping\GK.WebScraping.DB\obj\Release\netcoreapp3.1\GK.WebScraping.DB.pdb
+D:\Projects\GK.WebScraping\GK.WebScraping.DB\obj\Release\netcoreapp3.1\GK.WebScraping.DB.genruntimeconfig.cache

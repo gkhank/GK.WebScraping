@@ -11,13 +11,18 @@ namespace GK.WebScraping.Utilities
     {
         public HashSet<String> GetLinksInHtml(String html, string rootUrl = null)
         {
+            if (String.IsNullOrEmpty(html))
+                return new HashSet<string>();
+
+
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(html);
 
             HashSet<String> retval = new HashSet<string>();
 
             var links = doc.DocumentNode.Descendants("a")
-                .Select(x => x.GetAttributeValue<String>("href", null));
+                .Select(x => x.GetAttributeValue<String>("href", null))
+                .Where(x => String.IsNullOrEmpty(x) == false && x.StartsWith("#") == false && x != rootUrl);
 
             foreach (String l in links)
             {
@@ -28,11 +33,16 @@ namespace GK.WebScraping.Utilities
                     temp = rootUrl + temp.Substring(1);
 
 
-                if (String.IsNullOrEmpty(temp) == false &&
-                    temp != "#" &&
-                    retval.Contains(temp) == false)
+                if (String.IsNullOrEmpty(temp) == false)
                 {
-                    retval.Add(temp);
+                    if (temp.Length > 850)
+                        temp = temp.Substring(0, 849);
+
+                    if (temp.StartsWith(rootUrl) &&
+                        retval.Contains(temp) == false)
+                    {
+                        retval.Add(temp);
+                    }
                 }
             }
 
