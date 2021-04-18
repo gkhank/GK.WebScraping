@@ -24,6 +24,7 @@ namespace GK.WebScraping.Mapper.Service
                  {
                      services.AddDbContext<WebScrapingContext>();
                      services.AddHostedService<ReaderService>();
+                     services.AddMemoryCache();
                      //services.AddHostedService<Mapper>();
                  });
         }

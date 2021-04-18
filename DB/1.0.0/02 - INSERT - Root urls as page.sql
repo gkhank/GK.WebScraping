@@ -1,3 +1,3 @@
 use WebScraping
 INSERT INTO [Page]
-select NEWID(), storeID, rootUrl, null, null, GETDATE(), NULL, 0, 0 FROM Store
+select NEWID(), storeID, rootUrl, null, null, GETDATE(), NULL, 1, 1 FROM Store

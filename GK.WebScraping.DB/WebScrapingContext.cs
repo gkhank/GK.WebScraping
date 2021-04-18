@@ -34,6 +34,7 @@ namespace GK.WebScraping.DB
                     optionsBuilder.UseSqlServer("Server=ec2-13-48-31-67.eu-north-1.compute.amazonaws.com;Database=WebScraping;User Id=SQL_Application;Password=*lZ[}0mB]*)00(o;");
                 else
                     optionsBuilder.UseSqlServer("Server=localhost;Database=WebScraping;Trusted_Connection=True");
+
             }
         }
 

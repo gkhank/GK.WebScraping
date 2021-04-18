@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace GK.WebScraping.Mapper.Service.Thread
 {
-    public abstract class ThreadBase
+    public abstract class ThreadBase 
     {
         protected System.Threading.Thread _thread;
         protected object _lock = new object();
@@ -15,7 +15,6 @@ namespace GK.WebScraping.Mapper.Service.Thread
         private Stopwatch _processWatch;
         protected ILogger _logger;
         protected abstract String ThreadName { get; set; }
-        protected ReaderWriterLockSlim _rwLock;
 
 
         public ThreadBase(ILogger logger)
@@ -24,7 +23,6 @@ namespace GK.WebScraping.Mapper.Service.Thread
             this._processWatch = new Stopwatch();
             this._logger = logger;
             this._lock = new object();
-            this._rwLock = new ReaderWriterLockSlim();
         }
 
         public void Start()
@@ -39,7 +37,6 @@ namespace GK.WebScraping.Mapper.Service.Thread
         private void InnerProcess(object obj)
         {
             this._logger.LogInformation("{0} iteration started.", this.ThreadName);
-
             this._processWatch.Start();
             this.Process();
             this._processWatch.Stop();
@@ -52,19 +49,13 @@ namespace GK.WebScraping.Mapper.Service.Thread
         {
             this._overallWatch.Stop();
             this._logger.LogInformation("{0} is stopped and it was running for {1} seconds", this.ThreadName, this._overallWatch.ElapsedMilliseconds / 1000);
-            if (this._thread.ThreadState != System.Threading.ThreadState.Stopped)
-            {
-                this._thread.Interrupt();
-            }
         }
 
-        public Int32 SaveDatabaseChanges()
+        public Int32 SaveDatabaseChanges(WebScrapingContext context)
         {
-            if (DatabaseManager.WebScraping.ChangeTracker.HasChanges())
+            if (context.ChangeTracker.HasChanges())
             {
-                this._rwLock.EnterWriteLock();
-                Int32 count = DatabaseManager.WebScraping.SaveChanges();
-                this._rwLock.ExitWriteLock();
+                Int32 count = context.SaveChanges();
                 this._logger.LogInformation("Operation updated {0} new pages", count);
                 return count;
             }
