@@ -21,6 +21,7 @@ namespace GK.WebScraping.Mapper.Service.Thread
         private DateTime _lastAcceptableReadDate;
         private Timer _sleepTimer;
         private bool _run;
+        private WebScrapingContext _context;
 
         protected override string ThreadName { get; set; }
         public ReaderThread(ILogger logger, Int16 index, Int32 bulkSize) : base(logger)
@@ -29,7 +30,9 @@ namespace GK.WebScraping.Mapper.Service.Thread
             this._htmlUtils = new HtmlUtilities();
             this._bulkSize = bulkSize;
             this._run = true;
+            DatabaseTransactionQueueManager.Instance.InitLogger(logger);
         }
+
 
         private void TimerCallBack(object state)
         {
@@ -46,8 +49,12 @@ namespace GK.WebScraping.Mapper.Service.Thread
         {
             while (this._run)
             {
-
                 this._lastAcceptableReadDate = DateTime.Now.AddDays(-1);
+
+
+                DatabaseProcessKey operationKey = DatabaseProcessKey.GenerateKey(DatabaseQueuePriorityType.Normal);
+                this._context = DatabaseTransactionQueueManager.Instance.GetContext(operationKey);
+
                 Dictionary<Guid, Page> pages = this.GetPagesData();
 
                 //If there is no pages to read. Sleep thread until next time...
@@ -64,39 +71,35 @@ namespace GK.WebScraping.Mapper.Service.Thread
 
                 Int32 processCount = 0;
 
-                using (var context = new WebScrapingContext())
-                using (IDbContextTransaction transaction = context.Database.BeginTransaction())
+                IDbContextTransaction transaction = this._context.Database.BeginTransaction();
+                try
                 {
-                    try
+                    List<String> processedUrls = new List<string>();
+                    foreach (var page in pages.Values)
                     {
-                        context.Database.AutoTransactionsEnabled = false;
-                        transaction.CreateSavepoint("BeforeWrite");
+                        String html = null;
 
-                        List<String> processedUrls = new List<string>();
-                        foreach (var page in pages.Values)
-                        {
-                            String html = null;
+                        this.Update(page, ref html);
+                        processCount++;
 
-                            this.Update(context, page, ref html);
-                            processCount++;
+                        //Read all links for every content and save them to database to be read on next execution.
+                        String[] pageUrls = _htmlUtils.GetLinksInHtml(html, page.Store.RootUrl).ToArray();
+                        processedUrls.AddRange(this.InsertPageLinks(page.StoreId, pageUrls));
 
-                            //Read all links for every content and save them to database to be read on next execution.
-                            String[] pageUrls = _htmlUtils.GetLinksInHtml(html, page.Store.RootUrl).ToArray();
-                            processedUrls.AddRange(this.InsertPageLinks(context, page.StoreId, pageUrls));
-
-                        }
-                        processCount += processedUrls.Count;
-
-                        transaction.Commit();
-                        //Mark as finished so it can be picked up by any other thread.
-                        OperationCollection<Guid>.MarkAsCompleted(pages.Keys);
-                        OperationCollection<String>.MarkAsCompleted(processedUrls);
                     }
-                    catch (Exception e)
-                    {
-                        this._logger.LogError(e, e.Message);
-                        //transaction.RollbackToSavepoint("BeforeWrite");
-                    }
+                    processCount += processedUrls.Count;
+
+                    //Mark as finished so it can be picked up by any other thread.
+                    OperationCollection<Guid>.MarkAsCompleted(pages.Keys);
+                    OperationCollection<String>.MarkAsCompleted(processedUrls);
+
+
+                    DatabaseTransactionQueueManager.Instance.QueueTransaction(operationKey, transaction);
+
+                }
+                catch (Exception e)
+                {
+                    this._logger.LogError(e, e.Message);
                 }
 
                 this._logger.LogInformation("Iteration finished and {0} processed {1} pages.", this.ThreadName, processCount);
@@ -117,41 +120,34 @@ namespace GK.WebScraping.Mapper.Service.Thread
 
         private Dictionary<Guid, Page> GetPagesData()
         {
-            using (var context = new WebScrapingContext())
-            using (IDbContextTransaction readTransaction = context.Database.BeginTransaction())
+
+            try
             {
-                try
-                {
-                    readTransaction.CreateSavepoint("BeforeRead");
-                    Dictionary<Guid, Page> retval = context.Pages
-                        .Where(x =>
-                        OperationCollection<Guid>.OngoingProcesses.Contains(x.PageId) == false &&
-                        OperationCollection<String>.OngoingProcesses.Contains(x.Url) == false &&
-                        x.DeleteDate.HasValue == false &&
-                        x.Status == (Int32)StatusType.Active &&
-                        (x.LastReadDate.HasValue == false || x.LastReadDate <= this._lastAcceptableReadDate))
-                        .Take(this._bulkSize)
-                        .Include(x => x.Store)
-                        .ToDictionary(x => x.PageId);
+                Dictionary<Guid, Page> retval = this._context.Pages
+                    .Where(x =>
+                    OperationCollection<Guid>.OngoingProcesses.Contains(x.PageId) == false &&
+                    OperationCollection<String>.OngoingProcesses.Contains(x.Url) == false &&
+                    x.DeleteDate.HasValue == false &&
+                    x.Status == (Int32)StatusType.Active &&
+                    (x.LastReadDate.HasValue == false || x.LastReadDate <= this._lastAcceptableReadDate))
+                    .Take(this._bulkSize)
+                    .Include(x => x.Store)
+                    .ToDictionary(x => x.PageId);
 
 
-                    OperationCollection<Guid>.MarkAsOngoing(retval.Keys);
+                OperationCollection<Guid>.MarkAsOngoing(retval.Keys);
 
-                    readTransaction.Commit();
-                    return retval;
-                }
-                catch (Exception ex)
-                {
-                    readTransaction.RollbackToSavepoint("BeforeRead");
-                    throw ex;
-                }
+                return retval;
             }
-
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
         }
 
 
-        private string[] InsertPageLinks(WebScrapingContext context, Guid storeId, params string[] pageUrls)
+        private string[] InsertPageLinks(Guid storeId, params string[] pageUrls)
         {
             if (pageUrls.Length <= 0)
                 return pageUrls;
@@ -159,7 +155,7 @@ namespace GK.WebScraping.Mapper.Service.Thread
 
             List<String> retval = new List<string>();
             Dictionary<String, Page> databasePages = new Dictionary<string, Page>();
-            var existingPages = context.Pages.Where(x => pageUrls.Contains(x.Url));
+            var existingPages = this._context.Pages.Where(x => pageUrls.Contains(x.Url));
             foreach (var ep in existingPages)
             {
                 if (databasePages.ContainsKey(ep.Url) == false)
@@ -185,20 +181,19 @@ namespace GK.WebScraping.Mapper.Service.Thread
                         StoreId = storeId //Assign same storeId from parent page.
                     };
 
-                    context.Pages.Add(newPage);
+                    this._context.Pages.Add(newPage);
                     retval.Add(pageUrl);
                     //Lock this url
                     OperationCollection<String>.OngoingProcesses.Add(pageUrl);
                 }
             }
 
-            context.SaveChanges();
 
             return retval.ToArray();
 
         }
 
-        private void Update(WebScrapingContext context, Page page, ref string html)
+        private void Update(Page page, ref string html)
         {
             try
             {
@@ -217,20 +212,20 @@ namespace GK.WebScraping.Mapper.Service.Thread
                     if (lastFileUpdateTime < this._lastAcceptableReadDate)
                     {
                         this.UpdateFile(page.Url, fullPath, ref html);
-                        this.UpdateDatabaseContext(context, page, DateTime.Now);
+                        this.UpdateDatabaseContext(page, DateTime.Now);
                     }
                     else
                     {
                         this._logger.LogWarning("File was saved at '{0}'. Attempted to read HTML unneccsarily for '{0}'. Using existing content.", lastFileUpdateTime.ToString("yyyy-MM-dd HH:mm"), page.Url);
                         //Save read time on database so we won't try anymore...
-                        this.UpdateDatabaseContext(context, page, lastFileUpdateTime);
+                        this.UpdateDatabaseContext(page, lastFileUpdateTime);
                         html = this.ReadFile(fullPath);
                     }
                 }
                 else
                 {
                     this.UpdateFile(page.Url, fullPath, ref html);
-                    this.UpdateDatabaseContext(context, page, DateTime.Now);
+                    this.UpdateDatabaseContext(page, DateTime.Now);
 
                 }
 
@@ -269,12 +264,12 @@ namespace GK.WebScraping.Mapper.Service.Thread
 
         }
 
-        private void UpdateDatabaseContext(WebScrapingContext context, Page page, DateTime updateDate)
+        private void UpdateDatabaseContext(Page page, DateTime updateDate)
         {
             page.MapStatus = (short)MapStatusType.ContentReady;
             page.LastReadDate = updateDate;
-            context.Update(page);
-            context.SaveChanges();
+            this._context.Update(page);
+
         }
 
         public override void Stop()

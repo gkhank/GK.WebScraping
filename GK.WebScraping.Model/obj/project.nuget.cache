@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "couGMSM/BRwZ5mZv09ClTGpCvs9C8F/rGoAEj1uv30D90CPiYBefn0Y9w3h4QYo+s+d9CA4Y4Mggq5V1rzXxNw==",
+  "dgSpecHash": "MYj6DGL+0WfB81XcVN9RguXf/emTOtSLk1qqhj8AuuRwAXfJWQ91O5GJFH0U0HI91QQTdMpDKbBC7oT/ChDdBQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Model\\GK.WebScraping.Model.csproj",
+  "projectFilePath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Model\\GK.WebScraping.Model.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Gökhan\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+    "C:\\Users\\gkhan\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
   ],
   "logs": []
 }

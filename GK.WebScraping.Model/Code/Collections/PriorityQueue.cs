@@ -133,7 +133,7 @@ namespace GK.WebScraping.Model.Code.Collections
             /// <summary>
             /// Removes the first node (i.e., the logical root) from the heap.
             /// </summary>
-            private void Pop()
+            public void Pop()
             {
                 Debug.Assert(this._count != 0);
                 if (!this._isHeap)

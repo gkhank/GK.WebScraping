@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Mapper.Service\\GK.WebScraping.Mapper.Service.csproj": {}
+    "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Mapper.Service\\GK.WebScraping.Mapper.Service.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.DB\\GK.WebScraping.DB.csproj": {
+    "D:\\Projects\\GK.WebScraping\\GK.WebScraping.DB\\GK.WebScraping.DB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.DB\\GK.WebScraping.DB.csproj",
+        "projectUniqueName": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.DB\\GK.WebScraping.DB.csproj",
         "projectName": "GK.WebScraping.DB",
-        "projectPath": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.DB\\GK.WebScraping.DB.csproj",
-        "packagesPath": "C:\\Users\\Gökhan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.DB\\obj\\",
+        "projectPath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.DB\\GK.WebScraping.DB.csproj",
+        "packagesPath": "C:\\Users\\gkhan\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.DB\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Gökhan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\gkhan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -30,10 +30,9 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Model\\GK.WebScraping.Model.csproj": {
-                "projectPath": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Model\\GK.WebScraping.Model.csproj"
+              "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Model\\GK.WebScraping.Model.csproj": {
+                "projectPath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Model\\GK.WebScraping.Model.csproj"
               }
             }
           }
@@ -46,7 +45,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -92,24 +90,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.407\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Mapper.Service\\GK.WebScraping.Mapper.Service.csproj": {
+    "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Mapper.Service\\GK.WebScraping.Mapper.Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Mapper.Service\\GK.WebScraping.Mapper.Service.csproj",
+        "projectUniqueName": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Mapper.Service\\GK.WebScraping.Mapper.Service.csproj",
         "projectName": "GK.WebScraping.Mapper.Service",
-        "projectPath": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Mapper.Service\\GK.WebScraping.Mapper.Service.csproj",
-        "packagesPath": "C:\\Users\\Gökhan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Mapper.Service\\obj\\",
+        "projectPath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Mapper.Service\\GK.WebScraping.Mapper.Service.csproj",
+        "packagesPath": "C:\\Users\\gkhan\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Mapper.Service\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Gökhan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\gkhan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -122,13 +120,12 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.DB\\GK.WebScraping.DB.csproj": {
-                "projectPath": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.DB\\GK.WebScraping.DB.csproj"
+              "D:\\Projects\\GK.WebScraping\\GK.WebScraping.DB\\GK.WebScraping.DB.csproj": {
+                "projectPath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.DB\\GK.WebScraping.DB.csproj"
               },
-              "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Utilities\\GK.WebScraping.Utilities.csproj": {
-                "projectPath": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Utilities\\GK.WebScraping.Utilities.csproj"
+              "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Utilities\\GK.WebScraping.Utilities.csproj": {
+                "projectPath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Utilities\\GK.WebScraping.Utilities.csproj"
               }
             }
           }
@@ -141,7 +138,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
@@ -169,24 +165,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.407\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Model\\GK.WebScraping.Model.csproj": {
+    "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Model\\GK.WebScraping.Model.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Model\\GK.WebScraping.Model.csproj",
+        "projectUniqueName": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Model\\GK.WebScraping.Model.csproj",
         "projectName": "GK.WebScraping.Model",
-        "projectPath": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Model\\GK.WebScraping.Model.csproj",
-        "packagesPath": "C:\\Users\\Gökhan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Model\\obj\\",
+        "projectPath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Model\\GK.WebScraping.Model.csproj",
+        "packagesPath": "C:\\Users\\gkhan\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Model\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Gökhan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\gkhan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -199,7 +195,6 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -211,7 +206,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Newtonsoft.Json": {
               "target": "Package",
@@ -233,24 +227,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.407\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Utilities\\GK.WebScraping.Utilities.csproj": {
+    "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Utilities\\GK.WebScraping.Utilities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Utilities\\GK.WebScraping.Utilities.csproj",
+        "projectUniqueName": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Utilities\\GK.WebScraping.Utilities.csproj",
         "projectName": "GK.WebScraping.Utilities",
-        "projectPath": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Utilities\\GK.WebScraping.Utilities.csproj",
-        "packagesPath": "C:\\Users\\Gökhan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Utilities\\obj\\",
+        "projectPath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Utilities\\GK.WebScraping.Utilities.csproj",
+        "packagesPath": "C:\\Users\\gkhan\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Utilities\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Gökhan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\gkhan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -263,13 +257,12 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.DB\\GK.WebScraping.DB.csproj": {
-                "projectPath": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.DB\\GK.WebScraping.DB.csproj"
+              "D:\\Projects\\GK.WebScraping\\GK.WebScraping.DB\\GK.WebScraping.DB.csproj": {
+                "projectPath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.DB\\GK.WebScraping.DB.csproj"
               },
-              "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Model\\GK.WebScraping.Model.csproj": {
-                "projectPath": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Model\\GK.WebScraping.Model.csproj"
+              "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Model\\GK.WebScraping.Model.csproj": {
+                "projectPath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Model\\GK.WebScraping.Model.csproj"
               }
             }
           }
@@ -282,7 +275,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "HtmlAgilityPack": {
               "target": "Package",
@@ -304,7 +296,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.407\\RuntimeIdentifierGraph.json"
         }
       }
     }

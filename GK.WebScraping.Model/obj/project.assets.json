@@ -48,23 +48,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Gökhan\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\gkhan\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Model\\GK.WebScraping.Model.csproj",
+      "projectUniqueName": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Model\\GK.WebScraping.Model.csproj",
       "projectName": "GK.WebScraping.Model",
-      "projectPath": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Model\\GK.WebScraping.Model.csproj",
-      "packagesPath": "C:\\Users\\Gökhan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Model\\obj\\",
+      "projectPath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Model\\GK.WebScraping.Model.csproj",
+      "packagesPath": "C:\\Users\\gkhan\\.nuget\\packages\\",
+      "outputPath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Model\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\Gökhan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\gkhan\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -77,7 +77,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -89,7 +88,6 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
-        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "Newtonsoft.Json": {
             "target": "Package",
@@ -111,7 +109,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.407\\RuntimeIdentifierGraph.json"
       }
     }
   }

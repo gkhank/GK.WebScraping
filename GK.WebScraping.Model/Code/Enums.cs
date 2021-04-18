@@ -32,7 +32,8 @@ namespace GK.WebScraping.Model
 
     public enum DatabaseQueuePriorityType
     {
-        Read,
-        Write
+        High = 1,
+        Normal = 2,
+        Low = 3
     }
 }
