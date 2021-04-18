@@ -20,7 +20,7 @@ namespace GK.WebScraping.Mapper.Service.Thread
             }
         }
 
-        internal static void MarkAsCompleted(params Type[] items)
+        internal static void MarkAsCompleted(IEnumerable<Type> items)
         {
             lock (_lock)
             {
@@ -29,7 +29,7 @@ namespace GK.WebScraping.Mapper.Service.Thread
             }
         }
 
-        internal static void MarkAsOngoing(params Type[] items)
+        internal static void MarkAsOngoing(IEnumerable<Type> items)
         {
             lock (_lock)
                 foreach (var item in items)

@@ -11,6 +11,18 @@ namespace GK.WebScraping.Utilities
 
         private static ConnectionClient _client = null;
         private static readonly object _lock = new object();
+        private static HashSet<String> _forbiddenExtension = new HashSet<string>(new string[] {
+            ".pdf",
+            ".tif",
+            ".png",
+            ".doc",
+            ".docx",
+            ".jpg",
+            ".jpeg",
+            ".eps",
+            "xls",
+            "xlsx"
+            });
         public static ConnectionClient Client
         {
             get
@@ -56,7 +68,8 @@ namespace GK.WebScraping.Utilities
                         temp = temp.Substring(0, 849);
 
                     if (temp.StartsWith(rootUrl) &&
-                        retval.Contains(temp) == false)
+                        retval.Contains(temp) == false &&
+                        this.IsSupportedExtension(temp))
                     {
                         retval.Add(temp);
                     }
@@ -64,6 +77,16 @@ namespace GK.WebScraping.Utilities
             }
 
             return retval;
+        }
+
+        private bool IsSupportedExtension(string temp)
+        {
+            foreach (String fext in _forbiddenExtension)
+            {
+                if (temp.EndsWith(fext))
+                    return false;
+            }
+            return true;
         }
 
         public String GetHtmlContent(String url)

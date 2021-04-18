@@ -1,4 +1,5 @@
 ﻿using GK.WebScraping.DB;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading;
 
 namespace GK.WebScraping.Mapper.Service.Thread
 {
-    public abstract class ThreadBase 
+    public abstract class ThreadBase
     {
         protected System.Threading.Thread _thread;
         protected object _lock = new object();
@@ -55,10 +56,27 @@ namespace GK.WebScraping.Mapper.Service.Thread
         {
             if (context.ChangeTracker.HasChanges())
             {
-                Int32 count = context.SaveChanges();
-                this._logger.LogInformation("Operation updated {0} new pages", count);
-                return count;
+
+                using (IDbContextTransaction writeTransaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        writeTransaction.CreateSavepoint("BeforeWrite");
+                        Int32 count = context.SaveChanges();
+                        this._logger.LogInformation("Operation updated {0} new pages", count);
+                        writeTransaction.Commit();
+                        return count;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        writeTransaction.RollbackToSavepoint("BeforeWrite");
+                        throw ex;
+                    }
+
+                }
             }
+
             return 0;
 
         }

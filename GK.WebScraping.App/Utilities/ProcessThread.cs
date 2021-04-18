@@ -9,16 +9,14 @@ namespace GK.WebScraping.App.Utilities
     {
         private System.Threading.Thread _thread;
         private readonly DateTime _stopTime;
-        private readonly CommunicationManager _manager;
         private SearchOptions _options;
         private Form1.UpdateEventHandler _updateCallbackEvent { get; }
         private static readonly object _lock = new object();
         private Int32 _runCount = 0;
 
-        public ProcessThread(CommunicationManager manager, SearchOptions options, Form1.UpdateEventHandler updateCallbackEvent)
+        public ProcessThread( SearchOptions options, Form1.UpdateEventHandler updateCallbackEvent)
         {
             this._stopTime = DateTime.Now.AddMinutes(options.RunHours);
-            this._manager = manager;
             this._options = options;
             this._updateCallbackEvent = updateCallbackEvent;
         }

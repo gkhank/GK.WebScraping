@@ -14,21 +14,21 @@ namespace GK.WebScraping.App.Utilities
             _container = tb;
         }
 
-        public static void UpdateConfig(Configurations config)
-        {
-            //if (config.SupportAudioWarning)
-            //{
-            //    _speechSynth = new SpeechSynthesizer();
-            //    _speechSynth.Volume = 50;
-            //    _speechSynth.SelectVoiceByHints(VoiceGender.Male, VoiceAge.Adult);
-            //}
-            //else
-            //{
-            //    _speechSynth.Dispose();
-            //    _speechSynth = null;
-            //}
+        //public static void UpdateConfig(Configurations config)
+        //{
+        //    //if (config.SupportAudioWarning)
+        //    //{
+        //    //    _speechSynth = new SpeechSynthesizer();
+        //    //    _speechSynth.Volume = 50;
+        //    //    _speechSynth.SelectVoiceByHints(VoiceGender.Male, VoiceAge.Adult);
+        //    //}
+        //    //else
+        //    //{
+        //    //    _speechSynth.Dispose();
+        //    //    _speechSynth = null;
+        //    //}
 
-        }
+        //}
 
         public static void Write(string format, String color = "white", String bgcolor = "black", Boolean doSpeak = false, params Object[] args)
         {

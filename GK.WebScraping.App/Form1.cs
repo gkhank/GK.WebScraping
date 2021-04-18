@@ -9,18 +9,15 @@ namespace GK.WebScraping.App
 {
     public partial class Form1 : Form
     {
-        private readonly CommunicationManager _commManager;
         private ProcessThread _processThread;
 
 
         public Form1()
         {
             InitializeComponent();
-            this._commManager = CommunicationManager.Instance;
             ConsoleAgent.Init(this.rtxtConsole);
 
             this.gwProducts.CellContentClick += GwProducts_CellContentClick;
-            this.cblSelectStores.Items.AddRange(this._commManager.GetAllStores());
             this.UpdateCallbackEvent += this.UpdateCallback;
             Control.CheckForIllegalCrossThreadCalls = false;
             //var store = new object[] {
@@ -92,26 +89,18 @@ namespace GK.WebScraping.App
             //ConsoleAgent.Speak("Starting");
 
             SearchOptions options = this.GetOptions();
-            Configurations config = this.GetConfig();
-            ConsoleAgent.UpdateConfig(config);
+            //Configurations config = this.GetConfig();
+            //ConsoleAgent.UpdateConfig(config);
 
 
             if (this._processThread == null)
-                this._processThread = new ProcessThread(this._commManager, options, this.UpdateCallbackEvent);
+                this._processThread = new ProcessThread(options, this.UpdateCallbackEvent);
             else
                 this._processThread.Update(options);
 
             this._processThread.Start();
             this.btnStart.Text = "Stop";
 
-        }
-
-        private Configurations GetConfig()
-        {
-            return new Configurations()
-            {
-                SupportAudioWarning = this.cbAudioWarning.Checked,
-            };
         }
 
         private SearchOptions GetOptions()

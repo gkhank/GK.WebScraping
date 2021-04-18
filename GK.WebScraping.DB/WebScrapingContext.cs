@@ -26,17 +26,6 @@ namespace GK.WebScraping.DB
         public virtual DbSet<ProductDatum> ProductData { get; set; }
         public virtual DbSet<Store> Stores { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                if (Environment.MachineName == "GK-WS1")
-                    optionsBuilder.UseSqlServer("Server=ec2-13-48-31-67.eu-north-1.compute.amazonaws.com;Database=WebScraping;User Id=SQL_Application;Password=*lZ[}0mB]*)00(o;");
-                else
-                    optionsBuilder.UseSqlServer("Server=localhost;Database=WebScraping;Trusted_Connection=True");
-
-            }
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

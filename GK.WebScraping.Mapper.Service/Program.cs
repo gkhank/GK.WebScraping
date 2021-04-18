@@ -7,14 +7,22 @@ namespace GK.WebScraping.Mapper.Service
 {
     public class Program
     {
+
+
         public static void Main(string[] args)
         {
             //Ensure DB Connection...
-            Boolean canConnectDB = DatabaseManager.WebScraping.Database.CanConnect();
+            Boolean canConnectDB = TryConnectDB();
             if (canConnectDB)
                 CreateHostBuilder(args).Build().Run();
             else
                 throw new Exception("Can't connect to database");
+        }
+
+        private static bool TryConnectDB()
+        {
+            using (var context = new WebScrapingContext())
+                return context.Database.CanConnect();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args)

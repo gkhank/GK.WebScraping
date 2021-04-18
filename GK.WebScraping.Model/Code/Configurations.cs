@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace GK.WebScraping.Model
 {
-    public class Configurations
+    public static class Configurations
     {
-        public Boolean SupportAudioWarning { get; set; }
+        public static Boolean IsDevelopment { get { return Environment.MachineName != "GK-WS1"; } }
     }
 }
