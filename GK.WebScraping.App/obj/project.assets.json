@@ -584,7 +584,7 @@
           "System.Runtime": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.3/_._": {}
+          "ref/netstandard1.3/System.Collections.dll": {}
         }
       },
       "System.Collections.Concurrent/4.3.0": {
@@ -1452,7 +1452,7 @@
           "Microsoft.NETCore.Targets": "1.1.0"
         },
         "compile": {
-          "ref/netstandard1.5/_._": {}
+          "ref/netstandard1.5/System.Runtime.dll": {}
         }
       },
       "System.Runtime.Caching/5.0.0": {
@@ -2070,7 +2070,8 @@
           "GK.WebScraping.Model": "1.0.0",
           "Microsoft.EntityFrameworkCore": "5.0.5",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.5",
-          "Microsoft.Windows.Compatibility": "5.0.2"
+          "Microsoft.Windows.Compatibility": "5.0.2",
+          "System.Collections": "4.3.0"
         },
         "compile": {
           "bin/placeholder/GK.WebScraping.DB.dll": {}
@@ -7610,23 +7611,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\gkhan\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\Gökhan\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.App\\GK.WebScraping.App.csproj",
+      "projectUniqueName": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.App\\GK.WebScraping.App.csproj",
       "projectName": "GK.WebScraping.App",
-      "projectPath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.App\\GK.WebScraping.App.csproj",
-      "packagesPath": "C:\\Users\\gkhan\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.App\\obj\\",
+      "projectPath": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.App\\GK.WebScraping.App.csproj",
+      "packagesPath": "C:\\Users\\Gökhan\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.App\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\gkhan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Gökhan\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -7639,12 +7640,13 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Model\\GK.WebScraping.Model.csproj": {
-              "projectPath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Model\\GK.WebScraping.Model.csproj"
+            "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Model\\GK.WebScraping.Model.csproj": {
+              "projectPath": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Model\\GK.WebScraping.Model.csproj"
             },
-            "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Utilities\\GK.WebScraping.Utilities.csproj": {
-              "projectPath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Utilities\\GK.WebScraping.Utilities.csproj"
+            "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Utilities\\GK.WebScraping.Utilities.csproj": {
+              "projectPath": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Utilities\\GK.WebScraping.Utilities.csproj"
             }
           }
         }
@@ -7657,6 +7659,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "imports": [
           "net461",
           "net462",
@@ -7675,7 +7678,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.407\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

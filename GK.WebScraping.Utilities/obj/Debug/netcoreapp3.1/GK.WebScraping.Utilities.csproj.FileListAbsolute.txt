@@ -12,3 +12,17 @@ D:\Projects\GK.WebScraping\GK.WebScraping.Utilities\obj\Debug\netcoreapp3.1\GK.W
 D:\Projects\GK.WebScraping\GK.WebScraping.Utilities\obj\Debug\netcoreapp3.1\GK.WebScraping.Utilities.csproj.CopyComplete
 D:\Projects\GK.WebScraping\GK.WebScraping.Utilities\obj\Debug\netcoreapp3.1\GK.WebScraping.Utilities.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Utilities\obj\Debug\netcoreapp3.1\GK.WebScraping.Utilities.pdb
+C:\Users\Gökhan\GK.WebScraping\GK.WebScraping.Utilities\bin\Debug\netcoreapp3.1\GK.WebScraping.Utilities.deps.json
+C:\Users\Gökhan\GK.WebScraping\GK.WebScraping.Utilities\bin\Debug\netcoreapp3.1\GK.WebScraping.Utilities.dll
+C:\Users\Gökhan\GK.WebScraping\GK.WebScraping.Utilities\bin\Debug\netcoreapp3.1\GK.WebScraping.Utilities.pdb
+C:\Users\Gökhan\GK.WebScraping\GK.WebScraping.Utilities\bin\Debug\netcoreapp3.1\GK.WebScraping.DB.dll
+C:\Users\Gökhan\GK.WebScraping\GK.WebScraping.Utilities\bin\Debug\netcoreapp3.1\GK.WebScraping.Model.dll
+C:\Users\Gökhan\GK.WebScraping\GK.WebScraping.Utilities\bin\Debug\netcoreapp3.1\GK.WebScraping.DB.pdb
+C:\Users\Gökhan\GK.WebScraping\GK.WebScraping.Utilities\bin\Debug\netcoreapp3.1\GK.WebScraping.Model.pdb
+C:\Users\Gökhan\GK.WebScraping\GK.WebScraping.Utilities\obj\Debug\netcoreapp3.1\GK.WebScraping.Utilities.csprojAssemblyReference.cache
+C:\Users\Gökhan\GK.WebScraping\GK.WebScraping.Utilities\obj\Debug\netcoreapp3.1\GK.WebScraping.Utilities.AssemblyInfoInputs.cache
+C:\Users\Gökhan\GK.WebScraping\GK.WebScraping.Utilities\obj\Debug\netcoreapp3.1\GK.WebScraping.Utilities.AssemblyInfo.cs
+C:\Users\Gökhan\GK.WebScraping\GK.WebScraping.Utilities\obj\Debug\netcoreapp3.1\GK.WebScraping.Utilities.csproj.CoreCompileInputs.cache
+C:\Users\Gökhan\GK.WebScraping\GK.WebScraping.Utilities\obj\Debug\netcoreapp3.1\GK.WebScraping.Utilities.csproj.CopyComplete
+C:\Users\Gökhan\GK.WebScraping\GK.WebScraping.Utilities\obj\Debug\netcoreapp3.1\GK.WebScraping.Utilities.dll
+C:\Users\Gökhan\GK.WebScraping\GK.WebScraping.Utilities\obj\Debug\netcoreapp3.1\GK.WebScraping.Utilities.pdb

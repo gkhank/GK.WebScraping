@@ -2,9 +2,7 @@
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading;
 
 namespace GK.WebScraping.Mapper.Service.Thread
 {
@@ -50,35 +48,6 @@ namespace GK.WebScraping.Mapper.Service.Thread
         {
             this._overallWatch.Stop();
             this._logger.LogInformation("{0} is stopped and it was running for {1} seconds", this.ThreadName, this._overallWatch.ElapsedMilliseconds / 1000);
-        }
-
-        public Int32 SaveDatabaseChanges(WebScrapingContext context)
-        {
-            if (context.ChangeTracker.HasChanges())
-            {
-
-                using (IDbContextTransaction writeTransaction = context.Database.BeginTransaction())
-                {
-                    try
-                    {
-                        writeTransaction.CreateSavepoint("BeforeWrite");
-                        Int32 count = context.SaveChanges();
-                        this._logger.LogInformation("Operation updated {0} new pages", count);
-                        writeTransaction.Commit();
-                        return count;
-
-                    }
-                    catch (Exception ex)
-                    {
-                        writeTransaction.RollbackToSavepoint("BeforeWrite");
-                        throw ex;
-                    }
-
-                }
-            }
-
-            return 0;
-
         }
     }
 }

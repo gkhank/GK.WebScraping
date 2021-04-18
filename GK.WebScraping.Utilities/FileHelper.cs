@@ -18,6 +18,9 @@ namespace GK.WebScraping.Utilities
 
                     case "GK_DESKTOP":
                         return "D:\\Projects\\GK.WebScraping\\Resources";
+
+                    case "GOKHANWINL10":
+                        return "C:\\Users\\Gökhan\\GK.WebScraping\\";
                     default:
                         throw new NotImplementedException();
                 }

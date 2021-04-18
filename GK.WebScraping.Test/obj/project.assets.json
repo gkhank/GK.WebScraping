@@ -3057,7 +3057,8 @@
           "GK.WebScraping.Model": "1.0.0",
           "Microsoft.EntityFrameworkCore": "5.0.5",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.5",
-          "Microsoft.Windows.Compatibility": "5.0.2"
+          "Microsoft.Windows.Compatibility": "5.0.2",
+          "System.Collections": "4.3.0"
         },
         "compile": {
           "bin/placeholder/GK.WebScraping.DB.dll": {}
@@ -10225,23 +10226,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\gkhan\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\Gökhan\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Test\\GK.WebScraping.Test.csproj",
+      "projectUniqueName": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Test\\GK.WebScraping.Test.csproj",
       "projectName": "GK.WebScraping.Test",
-      "projectPath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Test\\GK.WebScraping.Test.csproj",
-      "packagesPath": "C:\\Users\\gkhan\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Test\\obj\\",
+      "projectPath": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Test\\GK.WebScraping.Test.csproj",
+      "packagesPath": "C:\\Users\\Gökhan\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.Test\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\gkhan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Gökhan\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -10254,9 +10255,10 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "D:\\Projects\\GK.WebScraping\\GK.WebScraping.DB\\GK.WebScraping.DB.csproj": {
-              "projectPath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.DB\\GK.WebScraping.DB.csproj"
+            "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.DB\\GK.WebScraping.DB.csproj": {
+              "projectPath": "C:\\Users\\Gökhan\\GK.WebScraping\\GK.WebScraping.DB\\GK.WebScraping.DB.csproj"
             }
           }
         }
@@ -10269,6 +10271,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "MSTest.TestAdapter": {
             "target": "Package",
@@ -10302,7 +10305,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.407\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }
