@@ -1,14 +1,31 @@
 ﻿using HtmlAgilityPack;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
 
 namespace GK.WebScraping.Utilities
 {
     public class HtmlUtilities
     {
+
+        private static ConnectionClient _client = null;
+        private static readonly object _lock = new object();
+        public static ConnectionClient Client
+        {
+            get
+            {
+                lock (_lock)
+                {
+                    if (_client == null)
+                    {
+                        _client = new ConnectionClient();
+                    }
+                    return _client;
+                }
+            }
+        }
+
         public HashSet<String> GetLinksInHtml(String html, string rootUrl = null)
         {
             if (String.IsNullOrEmpty(html))
@@ -51,30 +68,8 @@ namespace GK.WebScraping.Utilities
 
         public String GetHtmlContent(String url)
         {
-            using (Stream stream = this._GetHttpResponse(url).GetResponseStream())
-            {
-                using (StreamReader reader = new StreamReader(stream))
-                {
-                    return reader.ReadToEnd();
-                }
-            }
-        }
-
-        private HttpWebResponse _GetHttpResponse(String url)
-        {
-            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
-            webRequest.ContentType = "text/xml";
-            webRequest.AutomaticDecompression = DecompressionMethods.GZip;
-            try
-            {
-                return (HttpWebResponse)webRequest.GetResponse();
-            }
-            catch (WebException e)
-            {
-                if (e.Response == null)
-                    throw new Exception("Cannot get response");
-                return (HttpWebResponse)e.Response;
-            }
+            //Only use proxy on live...
+            return Client.Get(url, Environment.MachineName == "GK-WS1");
         }
     }
 }
