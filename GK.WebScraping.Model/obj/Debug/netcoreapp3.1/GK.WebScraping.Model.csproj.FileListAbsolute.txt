@@ -14,3 +14,4 @@ C:\Users\Gökhan\GK.WebScraping\GK.WebScraping.Model\obj\Debug\netcoreapp3.1\GK.
 C:\Users\Gökhan\GK.WebScraping\GK.WebScraping.Model\obj\Debug\netcoreapp3.1\GK.WebScraping.Model.csproj.CoreCompileInputs.cache
 C:\Users\Gökhan\GK.WebScraping\GK.WebScraping.Model\obj\Debug\netcoreapp3.1\GK.WebScraping.Model.dll
 C:\Users\Gökhan\GK.WebScraping\GK.WebScraping.Model\obj\Debug\netcoreapp3.1\GK.WebScraping.Model.pdb
+C:\Users\Gökhan\GK.WebScraping\GK.WebScraping.Model\obj\Debug\netcoreapp3.1\GK.WebScraping.Model.csprojAssemblyReference.cache

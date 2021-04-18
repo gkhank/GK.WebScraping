@@ -29,4 +29,10 @@ namespace GK.WebScraping.Model
         LinksRead,
         Mapped
     }
+
+    public enum DatabaseQueuePriorityType
+    {
+        Read,
+        Write
+    }
 }

@@ -7,8 +7,6 @@ namespace GK.WebScraping.Mapper.Service
 {
     public class Program
     {
-
-
         public static void Main(string[] args)
         {
             //Ensure DB Connection...

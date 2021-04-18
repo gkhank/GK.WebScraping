@@ -2389,7 +2389,8 @@
           "GK.WebScraping.Model": "1.0.0",
           "Microsoft.EntityFrameworkCore": "5.0.5",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.5",
-          "Microsoft.Windows.Compatibility": "5.0.2"
+          "Microsoft.Windows.Compatibility": "5.0.2",
+          "System.Collections": "4.3.0"
         },
         "runtime": {
           "GK.WebScraping.DB.dll": {}
