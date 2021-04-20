@@ -1,5 +1,4 @@
 ﻿using HtmlAgilityPack;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -78,7 +77,7 @@ namespace GK.WebScraping.Utilities
                         temp = temp.Substring(0, 849);
 
                     if (temp.StartsWith(rootUrl) &&
-                        retval.Contains(temp) == false)
+                        String.Equals(rootUrl, temp, StringComparison.OrdinalIgnoreCase) == false)
                     {
                         retval.Add(temp);
                     }

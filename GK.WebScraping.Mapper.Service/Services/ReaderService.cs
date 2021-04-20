@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using GK.WebScraping.Mapper.Service.Queues;
 using GK.WebScraping.Mapper.Service.Thread;
+using GK.WebScraping.Utilities;
 using Microsoft.Extensions.Logging;
 
 namespace GK.WebScraping.Mapper.Service
@@ -10,23 +12,31 @@ namespace GK.WebScraping.Mapper.Service
         List<ThreadBase> _threads;
         public ReaderService(ILogger<ReaderService> logger) : base(logger)
         {
+            DatabaseTransactionQueue.Instance.ThresholdReached += TresholdReached;
+            FileOperationsQueue.Instance.ThresholdReached += TresholdReached;
         }
 
-        protected override void InitThreads()
+        private void TresholdReached(object sender, EventArgs e)
+        {
+            this._logger.LogWarning(sender.ToString() + " reached max capacity. Sleeping threads for 5 minutes");
+
+            for (int i = 0; i < this._threads.Count; i++)
+                this._threads[i].SleepThread(DateTime.Now.AddMinutes(5));
+        }
+
+        protected override void Init()
         {
             this._threads = new List<ThreadBase>();
-            this._threads.Add(new ReaderThread(this._logger, 1, 500));
-            //this._threads.Add(new ReaderThread(this._logger, 2, 5));
-            //this._threads.Add(new ReaderThread(this._logger, 3, 5));
-            //this._threads.Add(new ReaderThread(this._logger, 5, 5));
-            //this._threads.Add(new ReaderThread(this._logger, 6, 5));
+
+            for (int i = 0; i < Configuration.Instance.Services.ReaderService.NumberOfThreads; i++)
+                this._threads.Add(ReaderThread.Create(this._logger, i, Configuration.Instance.Services.ReaderService.BulkSize));
         }
 
         protected override void Start()
         {
             for (int i = 0; i < this._threads.Count; i++)
             {
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(5000);
                 this._threads[i].Start();
             }
         }

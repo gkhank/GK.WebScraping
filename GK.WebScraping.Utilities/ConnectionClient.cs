@@ -373,7 +373,7 @@ namespace GK.WebScraping.Utilities
 
 
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+                request.AutomaticDecompression = DecompressionMethods.GZip;
                 request.Timeout = 10000;
 
                 if (useProxy)
@@ -390,7 +390,7 @@ namespace GK.WebScraping.Utilities
             catch (WebException wex)
             {
                 //Force reload proxy if it fails
-                EventLog.WriteEntry(this.ToString(), "Forcing proxy to reload due to WebException.", EventLogEntryType.Information);
+                //EventLog.WriteEntry(this.ToString(), "Forcing proxy to reload due to WebException.", EventLogEntryType.Information);
                 this._proxy = null;
                 throw wex;
             }

@@ -2334,6 +2334,7 @@
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
           "GK.WebScraping.Model": "1.0.0",
+          "GK.WebScraping.Utilities": "1.0.0",
           "Microsoft.EntityFrameworkCore": "5.0.5",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.5",
           "Microsoft.Windows.Compatibility": "5.0.2",
@@ -2363,9 +2364,9 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
-          "GK.WebScraping.DB": "1.0.0",
           "GK.WebScraping.Model": "1.0.0",
-          "HtmlAgilityPack": "1.11.32"
+          "HtmlAgilityPack": "1.11.32",
+          "System.Diagnostics.EventLog": "5.0.1"
         },
         "compile": {
           "bin/placeholder/GK.WebScraping.Utilities.dll": {}

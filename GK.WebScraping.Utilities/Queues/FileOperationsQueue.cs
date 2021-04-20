@@ -9,14 +9,11 @@ using System.Threading.Tasks;
 
 namespace GK.WebScraping.Utilities.Queues
 {
-    public class FileOperationsQueue : OperationQueueBase<FileOperation>
+    public class FileOperationsQueue : ApplicationQueueBase<FileOperation>
     {
 
         #region Singleton
         private static volatile FileOperationsQueue _instance;
-        public override int NumberOfMaximumThreads => 3;
-
-        private HashSet<Guid> _operatingFiles;
 
         public static FileOperationsQueue Instance
         {
@@ -32,27 +29,15 @@ namespace GK.WebScraping.Utilities.Queues
         }
         #endregion
 
-        public FileOperationsQueue() : base(new FileOperationComparer())
+        public FileOperationsQueue() : base()
         {
-            this._operatingFiles = new HashSet<Guid>();
+            this.Queue = new PriorityQueue<FileOperation>(
+                Configuration.Instance.Queues.FileOperationQueue.Capacity,
+                new FileOperationComparer());
+
         }
 
-        public override void Enqueue(FileOperation item)
-        {
-            while (this._operatingFiles.Contains(item.OperationID))
-            { }
-
-            this._operatingFiles.Add(item.OperationID);
-            base.Enqueue(item);
-        }
-
-        public override void Enqueue(FileOperation item, Action<FileOperation, object> callback)
-        {
-            this._operatingFiles.Add(item.OperationID);
-            base.Enqueue(item, callback);
-        }
-
-        protected override async Task<object> ProcessItem(FileOperation operation)
+        protected override async Task<Object> ProcessItem(FileOperation operation)
         {
             Boolean isSuccessful = false;
             switch (operation.Type)
@@ -77,11 +62,6 @@ namespace GK.WebScraping.Utilities.Queues
             return isSuccessful;
         }
 
-        protected override void DisposeItem(FileOperation item)
-        {
-            this._operatingFiles.Remove(item.OperationID);
-        }
-
         /// <summary>
         /// Base class already logs the error. This method is for adding extra operations for custom queues.
         /// </summary>
@@ -89,6 +69,10 @@ namespace GK.WebScraping.Utilities.Queues
         /// <param name="item"></param>
         protected override void OnException(Exception ex, FileOperation item)
         { }
+
+        protected override void DisposeItem(FileOperation item)
+        {
+        }
 
         protected class FileOperationComparer : IComparer<FileOperation>
         {
@@ -100,9 +84,9 @@ namespace GK.WebScraping.Utilities.Queues
                 if (x == y)
                     return 0;
                 else if (x > y)
-                    return 1;
-                else
                     return -1;
+                else
+                    return 1;
             }
         }
 

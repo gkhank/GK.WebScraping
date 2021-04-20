@@ -9,6 +9,7 @@
       "GK.WebScraping.DB/1.0.0": {
         "dependencies": {
           "GK.WebScraping.Model": "1.0.0",
+          "GK.WebScraping.Utilities": "1.0.0",
           "Microsoft.EntityFrameworkCore": "5.0.5",
           "Microsoft.EntityFrameworkCore.Design": "5.0.5",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.5",
@@ -18,6 +19,14 @@
         },
         "runtime": {
           "GK.WebScraping.DB.dll": {}
+        }
+      },
+      "HtmlAgilityPack/1.11.32": {
+        "runtime": {
+          "lib/netstandard2.0/HtmlAgilityPack.dll": {
+            "assemblyVersion": "1.11.32.0",
+            "fileVersion": "1.11.32.0"
+          }
         }
       },
       "Humanizer.Core/2.8.26": {
@@ -1756,6 +1765,16 @@
         "runtime": {
           "GK.WebScraping.Model.dll": {}
         }
+      },
+      "GK.WebScraping.Utilities/1.0.0": {
+        "dependencies": {
+          "GK.WebScraping.Model": "1.0.0",
+          "HtmlAgilityPack": "1.11.32",
+          "System.Diagnostics.EventLog": "5.0.1"
+        },
+        "runtime": {
+          "GK.WebScraping.Utilities.dll": {}
+        }
       }
     }
   },
@@ -1764,6 +1783,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "HtmlAgilityPack/1.11.32": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-c5eNfxPDvQSh7YClPuo+xkD1d5F4Qms4g+MG1UktytdHk/mvCFsbopLIsk+AKqByPmPvSl/xVmyogRBejf0DyQ==",
+      "path": "htmlagilitypack/1.11.32",
+      "hashPath": "htmlagilitypack.1.11.32.nupkg.sha512"
     },
     "Humanizer.Core/2.8.26": {
       "type": "package",
@@ -2732,6 +2758,11 @@
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
     },
     "GK.WebScraping.Model/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "GK.WebScraping.Utilities/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -79,9 +79,12 @@ namespace GK.WebScraping.DB
 
             modelBuilder.Entity<Page>(entity =>
             {
-                entity.HasKey(e => new { e.PageId, e.StoreId, e.Url });
+                entity.HasKey(e => new { e.PageId, e.StoreId });
 
                 entity.ToTable("Page");
+
+                entity.HasIndex(e => e.Url, "UQ_PageUrl")
+                    .IsUnique();
 
                 entity.Property(e => e.PageId)
                     .ValueGeneratedOnAdd()
@@ -107,7 +110,6 @@ namespace GK.WebScraping.DB
 
                 entity.Property(e => e.Url)
                     .IsRequired()
-                    .HasMaxLength(2048)
                     .IsUnicode(false)
                     .HasColumnName("url");
 

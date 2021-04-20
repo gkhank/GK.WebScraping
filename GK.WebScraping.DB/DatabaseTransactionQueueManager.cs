@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GK.WebScraping.DB
+namespace GK.WebScraping.Utilities.Queues
 {
     public class DatabaseTransactionQueueManager
     {

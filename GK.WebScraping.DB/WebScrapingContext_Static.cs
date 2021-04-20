@@ -1,7 +1,6 @@
 ﻿using System;
-using GK.WebScraping.Model;
+using GK.WebScraping.Utilities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
@@ -14,10 +13,18 @@ namespace GK.WebScraping.DB
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
 
+            EncryptionUtility encryptionUtility = new EncryptionUtility();
+
             if (!builder.IsConfigured)
             {
                 if (Environment.MachineName == "GK-WS1")
-                    builder.UseSqlServer("Server=ec2-13-48-31-67.eu-north-1.compute.amazonaws.com;Database=WebScraping;User Id=SQL_Application;Password=*lZ[}0mB]*)00(o;");
+                    builder.UseSqlServer(
+                        String.Format("Server={0};Database={1};User Id={2};Password={3}",
+                            Configuration.Instance.SqlServer.Host,
+                            Configuration.Instance.SqlServer.Database,
+                            Configuration.Instance.SqlServer.Username,
+                            encryptionUtility.Decrypt(Configuration.Instance.SqlServer.PasswordEncrypted)
+                        ));
                 else
                     builder.UseSqlServer("Server=localhost;Database=WebScraping;Trusted_Connection=True");
 
@@ -27,9 +34,15 @@ namespace GK.WebScraping.DB
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Page>()
-                    .HasIndex(u => u.Url)
-                    .IsUnique();
+
+            //modelBuilder.Entity<Page>(entity =>
+            //{
+
+            //    entity
+            //        .Property(e => e.PageId).ValueGeneratedOnAdd();
+
+            //    entity.HasAlternateKey(x => x.Url);
+            //});
         }
     }
 }

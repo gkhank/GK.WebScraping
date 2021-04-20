@@ -5,11 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.32" />
+    <Compile Remove="Queues\**" />
+    <EmbeddedResource Remove="Queues\**" />
+    <None Remove="Queues\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GK.WebScraping.DB\GK.WebScraping.DB.csproj" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.32" />
+    <PackageReference Include="System.Diagnostics.EventLog" Version="5.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\GK.WebScraping.Model\GK.WebScraping.Model.csproj" />
   </ItemGroup>
 

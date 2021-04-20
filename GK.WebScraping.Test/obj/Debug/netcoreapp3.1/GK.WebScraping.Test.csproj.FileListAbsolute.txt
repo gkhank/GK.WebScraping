@@ -219,6 +219,9 @@ C:\Users\Gökhan\GK.WebScraping\GK.WebScraping.Test\obj\Debug\netcoreapp3.1\GK.W
 C:\Users\Gökhan\GK.WebScraping\GK.WebScraping.Test\obj\Debug\netcoreapp3.1\GK.WebScraping.Test.dll
 C:\Users\Gökhan\GK.WebScraping\GK.WebScraping.Test\obj\Debug\netcoreapp3.1\GK.WebScraping.Test.pdb
 C:\Users\Gökhan\GK.WebScraping\GK.WebScraping.Test\obj\Debug\netcoreapp3.1\GK.WebScraping.Test.genruntimeconfig.cache
+D:\Projects\GK.WebScraping\GK.WebScraping.Test\obj\Debug\netcoreapp3.1\GK.WebScraping.Test.AssemblyInfoInputs.cache
+D:\Projects\GK.WebScraping\GK.WebScraping.Test\obj\Debug\netcoreapp3.1\GK.WebScraping.Test.AssemblyInfo.cs
+D:\Projects\GK.WebScraping\GK.WebScraping.Test\obj\Debug\netcoreapp3.1\GK.WebScraping.Test.csproj.CoreCompileInputs.cache
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
@@ -436,9 +439,6 @@ D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Debug\netcoreapp3.1\GK.WebScr
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Debug\netcoreapp3.1\GK.WebScraping.Utilities.pdb
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Debug\netcoreapp3.1\GK.WebScraping.Model.pdb
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\obj\Debug\netcoreapp3.1\GK.WebScraping.Test.csprojAssemblyReference.cache
-D:\Projects\GK.WebScraping\GK.WebScraping.Test\obj\Debug\netcoreapp3.1\GK.WebScraping.Test.AssemblyInfoInputs.cache
-D:\Projects\GK.WebScraping\GK.WebScraping.Test\obj\Debug\netcoreapp3.1\GK.WebScraping.Test.AssemblyInfo.cs
-D:\Projects\GK.WebScraping\GK.WebScraping.Test\obj\Debug\netcoreapp3.1\GK.WebScraping.Test.csproj.CoreCompileInputs.cache
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\obj\Debug\netcoreapp3.1\GK.WebScraping.Test.csproj.CopyComplete
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\obj\Debug\netcoreapp3.1\GK.WebScraping.Test.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\obj\Debug\netcoreapp3.1\GK.WebScraping.Test.pdb

@@ -15,7 +15,7 @@ namespace GK.WebScraping.Mapper.Service
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            this.InitThreads();
+            this.Init();
             this.Start();
         }
 
@@ -26,7 +26,7 @@ namespace GK.WebScraping.Mapper.Service
             await base.StopAsync(cancellationToken);
         }
 
-        protected abstract void InitThreads();
+        protected abstract void Init();
         protected abstract void Start();
         protected abstract void Stop();
     }

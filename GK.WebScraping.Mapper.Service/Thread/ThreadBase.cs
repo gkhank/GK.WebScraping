@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Diagnostics;
+using System.Threading;
 
 namespace GK.WebScraping.Mapper.Service.Thread
 {
@@ -10,11 +11,14 @@ namespace GK.WebScraping.Mapper.Service.Thread
     {
         protected System.Threading.Thread _thread;
         protected object _lock = new object();
+        protected Timer _sleepTimer;
+        protected ILogger _logger;
+        protected bool _run;
+
         private Stopwatch _overallWatch;
         private Stopwatch _processWatch;
-        protected ILogger _logger;
-        protected abstract String ThreadName { get; set; }
 
+        protected abstract String ThreadName { get; set; }
 
         public ThreadBase(ILogger logger)
         {
@@ -40,6 +44,25 @@ namespace GK.WebScraping.Mapper.Service.Thread
             this.Process();
             this._processWatch.Stop();
             this._logger.LogInformation("Iteration ended in thread {0} and completed in {1} ms", this.ThreadName, this._processWatch.ElapsedMilliseconds);
+        }
+
+        public void SleepThread(DateTime sleepUntil)
+        {
+            TimeSpan span = sleepUntil - DateTime.Now;
+            this._logger.LogInformation("Sleeping thread until next execution time '{0}'", sleepUntil.ToString("yyyy-MM-dd HH:mm:ss"));
+            this._sleepTimer = new Timer(this.TimerCallBack, this, span, span);
+            this.Stop();
+        }
+
+        private void TimerCallBack(object state)
+        {
+
+            //Restart the thread
+            if (this._run == false)
+            {
+                this._run = true;
+                this.Start();
+            }
         }
 
         protected abstract void Process();

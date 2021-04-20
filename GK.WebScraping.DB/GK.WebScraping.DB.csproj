@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GK.WebScraping.Model\GK.WebScraping.Model.csproj" />
+    <ProjectReference Include="..\GK.WebScraping.Utilities\GK.WebScraping.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

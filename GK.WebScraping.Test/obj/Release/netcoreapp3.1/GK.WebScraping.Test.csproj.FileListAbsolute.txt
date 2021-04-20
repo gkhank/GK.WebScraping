@@ -6,6 +6,7 @@ D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\GK.WebS
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\GK.WebScraping.Test.runtimeconfig.dev.json
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\GK.WebScraping.Test.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\GK.WebScraping.Test.pdb
+D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\HtmlAgilityPack.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\Microsoft.VisualStudio.CodeCoverage.Shim.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\Microsoft.EntityFrameworkCore.dll
@@ -209,7 +210,9 @@ D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\runtime
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\GK.WebScraping.DB.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\GK.WebScraping.Model.dll
+D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\GK.WebScraping.Utilities.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\GK.WebScraping.DB.pdb
+D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\GK.WebScraping.Utilities.pdb
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\GK.WebScraping.Model.pdb
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\obj\Release\netcoreapp3.1\GK.WebScraping.Test.csprojAssemblyReference.cache
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\obj\Release\netcoreapp3.1\GK.WebScraping.Test.AssemblyInfoInputs.cache

@@ -3,8 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Text;
+using System.Threading;
 
 namespace GK.WebScraping.Test
 {
@@ -12,19 +11,53 @@ namespace GK.WebScraping.Test
     public class CollectionTest
     {
         [TestMethod]
-        public void PriorityQueueTest()
+        public void PriorityQueueOrderTest()
+        {
+            PriorityQueue<Int32> queue = new PriorityQueue<int>(new TestComparer());
+            for (int i = 1000; i <= 3000; i++)
+            {
+                queue.Enqueue(i);
+            }
+
+
+            for (int i = 1000; i <= 3000; i++)
+            {
+                var x = queue.Dequeue();
+                Debug.WriteLine("Processing item : " + x);
+                Assert.AreEqual(i, x);
+            }
+
+        }
+
+        [TestMethod]
+        public void PriorityQueueRandomInsertTest()
         {
             PriorityQueue<Int32> queue = new PriorityQueue<int>(new TestComparer());
 
-            queue.Enqueue(5);
-            queue.Enqueue(3);
-            queue.Enqueue(1);
-            queue.Enqueue(2);
-            queue.Enqueue(4);
+            SortedList<Int32, Int32> sorted = new SortedList<int, int>();
+            Random rnd = new Random();
+            for (int i = 1000; i <= 3000; i++)
+            {
+                var x = rnd.Next(1000, i);
+                sorted.Add(i, x);
+                queue.Enqueue(x);
+            }
+
+            Assert.AreEqual(queue.Count, sorted.Count);
 
 
-            while (queue.Count > 0)
-                Debug.WriteLine(queue.Dequeue());
+            for (int i = 1000; i <= 3000; i++)
+            {
+                var expected = sorted[i];
+                var actual = queue.Dequeue();
+
+                //Pause so you have enough time to debug...
+                Boolean result = expected == actual;
+                if (!result)
+                    Thread.Sleep(10000);
+
+                Assert.AreEqual(expected, actual);
+            }
 
         }
     }
@@ -37,9 +70,9 @@ namespace GK.WebScraping.Test
             if (x == y)
                 return 0;
             else if (x > y)
-                return 1;
-            else
                 return -1;
+            else
+                return 1;
         }
     }
 }

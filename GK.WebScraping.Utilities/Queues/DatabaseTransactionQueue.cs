@@ -9,9 +9,9 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GK.WebScraping.Utilities
+namespace GK.WebScraping.Utilities.Queues
 {
-    public class DatabaseTransactionQueue : OperationQueueBase<KeyValuePair<DatabaseProcessKey, IDbContextTransaction>>
+    public class DatabaseTransactionQueue : ApplicationQueueBase<KeyValuePair<DatabaseProcessKey, IDbContextTransaction>>
     {
         /// <summary>
         /// Transaction queues holds all transactions to be processed in order. Write transactions should always be prioritised. Therefore we are implementing a custom comparer to prioritise those.
@@ -22,6 +22,7 @@ namespace GK.WebScraping.Utilities
 
         #region Singleton
         private static volatile DatabaseTransactionQueue _instance;
+
 
         public static DatabaseTransactionQueue Instance
         {
@@ -37,11 +38,14 @@ namespace GK.WebScraping.Utilities
         }
         #endregion
 
-        public DatabaseTransactionQueue() : base(new DatabaseOperationComparer())
+        public DatabaseTransactionQueue() : base()
         {
             if (this._activeContexts == null)
-                _activeContexts = new Dictionary<Guid, WebScrapingContext>();
+                this._activeContexts = new Dictionary<Guid, WebScrapingContext>();
 
+            this.Queue = new PriorityQueue<KeyValuePair<DatabaseProcessKey, IDbContextTransaction>>
+                (Configuration.Instance.Queues.DatabaseTransactionQueue.Capacity, 
+                new DatabaseOperationComparer());
         }
 
 
@@ -58,6 +62,12 @@ namespace GK.WebScraping.Utilities
             return this._activeContexts[key.OperationID];
         }
 
+        public void DisposeContext(DatabaseProcessKey key)
+        {
+            this._activeContexts[key.OperationID].Dispose();
+            this._activeContexts.Remove(key.OperationID);
+        }
+
         /// <summary>
         /// Queues a database transaction to be performed in given priority.
         /// </summary>
@@ -69,6 +79,7 @@ namespace GK.WebScraping.Utilities
                 throw new Exception("No active context could be found for this thread. Please define database context before queuing a transaction");
 
             //Save changes before enqueue
+            context.Database.AutoTransactionsEnabled = false;
             context.SaveChanges();
 
             //Ensure the transaction queue is running.
@@ -99,6 +110,7 @@ namespace GK.WebScraping.Utilities
             if (this._activeContexts.TryGetValue(process.Key.OperationID, out WebScrapingContext context) == false)
             {
                 this.WriteLog(new Exception(String.Format("Could not find any active context for thread '{0}'", process.Key.OperationID.ToString())));
+                this.WriteLog("warning", Environment.StackTrace);
                 return false;
             }
 
@@ -139,9 +151,9 @@ namespace GK.WebScraping.Utilities
             if (x == y)
                 return 0;
             else if (x > y)
-                return 1;
-            else
                 return -1;
+            else
+                return 1;
         }
     }
 }

@@ -10,289 +10,59 @@ namespace GK.WebScraping.Model.Code.Collections
 
     namespace GK.WebScraping.Model.Collection
     {
-        /// <summary>
-        /// PriorityQueue provides a stack-like interface, except that objects
-        /// "pushed" in arbitrary order are "popped" in order of priority, i.e.,
-        /// from least to greatest as defined by the specified comparer.
-        /// </summary>
-        /// <remarks>
-        /// Push and Pop are each O(log N). Pushing N objects and them popping
-        /// them all is equivalent to performing a heap sort and is O(N log N).
-        /// </remarks>
-        public class PriorityQueue<T> : IDisposable
+        public class PriorityQueue<T>
         {
-            //
-            // The _heap array represents a binary tree with the "shape" property.
-            // If we number the nodes of a binary tree from left-to-right and top-
-            // to-bottom as shown,
-            //
-            //             0
-            //           /   \
-            //          /     \
-            //         1       2
-            //       /  \     / \
-            //      3    4   5   6
-            //     /\    /
-            //    7  8  9
-            //
-            // The shape property means that there are no gaps in the sequence of
-            // numbered nodes, i.e., for all N > 0, if node N exists then node N-1
-            // also exists. For example, the next node added to the above tree would
-            // be node 10, the right child of node 4.
-            //
-            // Because of this constraint, we can easily represent the "tree" as an
-            // array, where node number == array index, and parent/child relationships
-            // can be calculated instead of maintained explicitly. For example, for
-            // any node N > 0, the parent of N is at array index (N - 1) / 2.
-            //
-            // In addition to the above, the first _count members of the _heap array
-            // compose a "heap", meaning each child node is greater than or equal to
-            // its parent node; thus, the root node is always the minimum (i.e., the
-            // best match for the specified style, weight, and stretch) of the nodes
-            // in the heap.
-            //
-            // Initially _count < 0, which means we have not yet constructed the heap.
-            // On the first call to MoveNext, we construct the heap by "pushing" all
-            // the nodes into it. Each successive call "pops" a node off the heap
-            // until the heap is empty (_count == 0), at which time we've reached the
-            // end of the sequence.
-            //
+            IComparer<T> comparer;
 
-            #region constructors
+            public int Capacity { get; }
 
-            public PriorityQueue(IComparer<T> comparer, int capacity = DefaultCapacity)
+            T[] heap;
+            public int Count { get; private set; }
+            public PriorityQueue() : this(null) { }
+            public PriorityQueue(int capacity) : this(capacity, null) { }
+            public PriorityQueue(IComparer<T> comparer) : this(16, comparer) { }
+            public PriorityQueue(int capacity, IComparer<T> comparer)
             {
-                this._heap = new T[capacity > 0 ? capacity : DefaultCapacity];
-                this._count = 0;
-                this._comparer = comparer;
+                this.comparer = (comparer == null) ? Comparer<T>.Default : comparer;
+                this.Capacity = capacity;
+                this.heap = new T[capacity];
             }
-
-            #endregion
-
-            #region public members
-
-            /// <summary>
-            /// Gets the number of items in the priority queue.
-            /// </summary>
-            public int Count
+            public void Enqueue(T v)
             {
-                get { return _count; }
+                if (this.Count >= this.heap.Length) Array.Resize(ref this.heap, this.Count * 2);
+                this.heap[this.Count] = v;
+                this.SiftUp(this.Count++);
             }
-
-            /// <summary>
-            /// Gets the first or topmost object in the priority queue, which is the
-            /// object with the minimum value.
-            /// </summary>
-            public T NextItem
+            public T Dequeue()
             {
-                get
+                var v = this.Peek();
+                this.heap[0] = this.heap[--this.Count];
+                if (this.Count > 0) this.SiftDown(0);
+                return v;
+            }
+            public T Peek()
+            {
+                if (Count > 0) return this.heap[0];
+                throw new InvalidOperationException("Priority queue is empty");
+            }
+            void SiftUp(int n)
+            {
+                var v = heap[n];
+                for (var n2 = n / 2; n > 0 && this.comparer.Compare(v, this.heap[n2]) > 0; n = n2, n2 /= 2) this.heap[n] = this.heap[n2];
+                this.heap[n] = v;
+            }
+            void SiftDown(int n)
+            {
+                var v = heap[n];
+                for (var n2 = n * 2; n2 < this.Count; n = n2, n2 *= 2)
                 {
-                    Debug.Assert(this._count > 0);
-                    if (!this._isHeap)
-                    {
-                        this.Heapify();
-                    }
-
-                    return this._heap[0];
+                    if (n2 + 1 < this.Count && this.comparer.Compare(this.heap[n2 + 1], this.heap[n2]) > 0) n2++;
+                    if (this.comparer.Compare(v, this.heap[n2]) >= 0) break;
+                    this.heap[n] = this.heap[n2];
                 }
+                this.heap[n] = v;
             }
-
-            /// <summary>
-            /// Adds an object to the priority queue.
-            /// </summary>
-            public void Enqueue(T value)
-            {
-                // Increase the size of the array if necessary.
-                if (this._count == this._heap.Length)
-                {
-                    Array.Resize<T>(ref this._heap, this._count * 2);
-                }
-
-                // A common usage is to Push N items, then Pop them.  Optimize for that
-                // case by treating Push as a simple append until the first Top or Pop,
-                // which establishes the heap property.  After that, Push needs
-                // to maintain the heap property.
-                if (this._isHeap)
-                {
-                    this.SiftUp(this._count, ref value, 0);
-                }
-                else
-                {
-                    this._heap[this._count] = value;
-                }
-
-                this._count++;
-            }
-
-            public T Dequeue() {
-                T retval = this.NextItem;
-                this.Pop();
-                return retval;
-            }
-
-            /// <summary>
-            /// Removes the first node (i.e., the logical root) from the heap.
-            /// </summary>
-            public void Pop()
-            {
-                Debug.Assert(this._count != 0);
-                if (!this._isHeap)
-                {
-                    this.Heapify();
-                }
-
-                if (this._count > 0)
-                {
-                    --this._count;
-
-                    // discarding the root creates a gap at position 0.  We fill the
-                    // gap with the item x from the last position, after first sifting
-                    // the gap to a position where inserting x will maintain the
-                    // heap property.  This is done in two phases - SiftDown and SiftUp.
-                    //
-                    // The one-phase method found in many textbooks does 2 comparisons
-                    // per level, while this method does only 1.  The one-phase method
-                    // examines fewer levels than the two-phase method, but it does
-                    // more comparisons unless x ends up in the top 2/3 of the tree.
-                    // That accounts for only n^(2/3) items, and x is even more likely
-                    // to end up near the bottom since it came from the bottom in the
-                    // first place.  Overall, the two-phase method is noticeably better.
-
-                    T x = this._heap[this._count];        // lift item x out from the last position
-                    int index = this.SiftDown(0);    // sift the gap at the root down to the bottom
-                    this.SiftUp(index, ref x, 0);    // sift the gap up, and insert x in its rightful position
-                    this._heap[this._count] = default(T); // don't leak x
-                }
-            }
-
-            #endregion
-
-            #region private members
-
-            // sift a gap at the given index down to the bottom of the heap,
-            // return the resulting index
-            private int SiftDown(int index)
-            {
-                // Loop invariants:
-                //
-                //  1.  parent is the index of a gap in the logical tree
-                //  2.  leftChild is
-                //      (a) the index of parent's left child if it has one, or
-                //      (b) a value >= _count if parent is a leaf node
-                //
-                int parent = index;
-                int leftChild = HeapLeftChild(parent);
-
-                while (leftChild < this._count)
-                {
-                    int rightChild = HeapRightFromLeft(leftChild);
-                    int bestChild =
-                        (rightChild < this._count && this._comparer.Compare(this._heap[rightChild], this._heap[leftChild]) < 0) ?
-                        rightChild : leftChild;
-
-                    // Promote bestChild to fill the gap left by parent.
-                    this._heap[parent] = this._heap[bestChild];
-
-                    // Restore invariants, i.e., let parent point to the gap.
-                    parent = bestChild;
-                    leftChild = HeapLeftChild(parent);
-                }
-
-                return parent;
-            }
-
-            // sift a gap at index up until it reaches the correct position for x,
-            // or reaches the given boundary.  Place x in the resulting position.
-            private void SiftUp(int index, ref T x, int boundary)
-            {
-                while (index > boundary)
-                {
-                    int parent = HeapParent(index);
-                    if (this._comparer.Compare(this._heap[parent], x) > 0)
-                    {
-                        this._heap[index] = this._heap[parent];
-                        index = parent;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-                this._heap[index] = x;
-            }
-
-            // Establish the heap property:  _heap[k] >= _heap[HeapParent(k)], for 0<k<_count
-            // Do this "bottom up", by iterating backwards.  At each iteration, the
-            // property inductively holds for k >= HeapLeftChild(i)+2;  the body of
-            // the loop extends the property to the children of position i (namely
-            // k=HLC(i) and k=HLC(i)+1) by lifting item x out from position i, sifting
-            // the resulting gap down to the bottom, then sifting it back up (within
-            // the subtree under i) until finding x's rightful position.
-            //
-            // Iteration i does work proportional to the height (distance to leaf)
-            // of the node at position i.  Half the nodes are leaves with height 0;
-            // there's nothing to do for these nodes, so we skip them by initializing
-            // i to the last non-leaf position.  A quarter of the nodes have height 1,
-            // an eigth have height 2, etc. so the total work is ~ 1*n/4 + 2*n/8 +
-            // 3*n/16 + ... = O(n).  This is much cheaper than maintaining the
-            // heap incrementally during the "Push" phase, which would cost O(n*log n).
-            private void Heapify()
-            {
-                if (!this._isHeap)
-                {
-                    for (int i = _count / 2 - 1; i >= 0; --i)
-                    {
-                        // we use a two-phase method for the same reason Pop does
-                        T x = this._heap[i];
-                        int index = this.SiftDown(i);
-                        this.SiftUp(index, ref x, i);
-                    }
-                    this._isHeap = true;
-                }
-            }
-
-            /// <summary>
-            /// Calculate the parent node index given a child node's index, taking advantage
-            /// of the "shape" property.
-            /// </summary>
-            private static int HeapParent(int i)
-            {
-                return (i - 1) / 2;
-            }
-
-            /// <summary>
-            /// Calculate the left child's index given the parent's index, taking advantage of
-            /// the "shape" property. If there is no left child, the return value is >= _count.
-            /// </summary>
-            private static int HeapLeftChild(int i)
-            {
-                return (i * 2) + 1;
-            }
-
-            /// <summary>
-            /// Calculate the right child's index from the left child's index, taking advantage
-            /// of the "shape" property (i.e., sibling nodes are always adjacent). If there is
-            /// no right child, the return value >= _count.
-            /// </summary>
-            private static int HeapRightFromLeft(int i)
-            {
-                return i + 1;
-            }
-
-            public void Dispose()
-            {
-                this._heap = new T[0];
-                this._count = 0;
-                this.Heapify();
-            }
-
-            private T[] _heap;
-            private int _count;
-            private IComparer<T> _comparer;
-            private bool _isHeap;
-            private const int DefaultCapacity = 256;
-
-            #endregion
         }
     }
 }
+
