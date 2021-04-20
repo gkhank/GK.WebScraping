@@ -2,7 +2,9 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web;
 
 namespace GK.WebScraping.Utilities
 {
@@ -22,7 +24,12 @@ namespace GK.WebScraping.Utilities
             ".eps",
             "xls",
             "xlsx"
-            });
+        });
+        private static HashSet<String> _forbiddenPrefixes = new HashSet<string>(new string[] {
+            "cookie",
+            "?node",
+            "ref="
+        });
         public static ConnectionClient Client
         {
             get
@@ -38,7 +45,7 @@ namespace GK.WebScraping.Utilities
             }
         }
 
-        public HashSet<String> GetLinksInHtml(String html, string rootUrl = null)
+        public HashSet<String> GetLinksInHtml(String html, string rootUrl)
         {
             if (String.IsNullOrEmpty(html))
                 return new HashSet<string>();
@@ -56,6 +63,9 @@ namespace GK.WebScraping.Utilities
             foreach (String l in links)
             {
                 String temp = l;
+                if (this.IsValidLink(temp) == false)
+                    continue;
+
                 if (String.IsNullOrEmpty(rootUrl) == false &&
                     temp.StartsWith(rootUrl) == false &&
                     temp.StartsWith("/"))
@@ -68,8 +78,7 @@ namespace GK.WebScraping.Utilities
                         temp = temp.Substring(0, 849);
 
                     if (temp.StartsWith(rootUrl) &&
-                        retval.Contains(temp) == false &&
-                        this.IsSupportedExtension(temp))
+                        retval.Contains(temp) == false)
                     {
                         retval.Add(temp);
                     }
@@ -79,13 +88,20 @@ namespace GK.WebScraping.Utilities
             return retval;
         }
 
-        private bool IsSupportedExtension(string temp)
+        private bool IsValidLink(string temp)
         {
-            foreach (String fext in _forbiddenExtension)
+            foreach (String extension in _forbiddenExtension)
             {
-                if (temp.EndsWith(fext))
+                if (temp.EndsWith(extension))
                     return false;
             }
+            foreach (String prefix in _forbiddenPrefixes)
+            {
+                if (temp.StartsWith(prefix))
+                    return false;
+            }
+
+
             return true;
         }
 
@@ -93,6 +109,22 @@ namespace GK.WebScraping.Utilities
         {
             //Only use proxy on live...
             return Client.Get(url, Environment.MachineName == "GK-WS1");
+        }
+
+        public string UrlEncode(string url)
+        {
+            return HttpUtility.UrlEncode(url);
+        }
+
+        public string EncodeUrlFilename(string url)
+        {
+            char[] invalids = Path.GetInvalidFileNameChars();
+
+            for (int i = 0; i < invalids.Length; i++)
+                url = url.Replace(invalids[i], '_');
+
+            return url;
+
         }
     }
 }

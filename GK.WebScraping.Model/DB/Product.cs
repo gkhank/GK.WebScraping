@@ -12,7 +12,7 @@ namespace GK.WebScraping.Model
             ProductData = new HashSet<ProductDatum>();
         }
 
-        public Guid ProductId { get; set; }
+        public int ProductId { get; set; }
         public string Name { get; set; }
         public DateTime? CreateDate { get; set; }
 

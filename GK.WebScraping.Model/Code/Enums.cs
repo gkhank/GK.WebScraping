@@ -30,7 +30,7 @@ namespace GK.WebScraping.Model
         Mapped
     }
 
-    public enum DatabaseQueuePriorityType
+    public enum PriorityType
     {
         High = 1,
         Normal = 2,

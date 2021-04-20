@@ -1,5 +1,6 @@
 using GK.WebScraping.DB;
 using GK.WebScraping.Model;
+using GK.WebScraping.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Caching.Memory;
@@ -30,7 +31,6 @@ namespace GK.WebScraping.Test
         [TestMethod]
         public void DatabaseQueueManagerSingleThreadWriteTest()
         {
-            Guid thread1Id = Guid.NewGuid();
 
             //Init database
 
@@ -43,9 +43,10 @@ namespace GK.WebScraping.Test
                     //.UseMemoryCache(provider.GetService<IMemoryCache>())
                     .UseSqlServer("Server=localhost;Database=WebScraping;Trusted_Connection=True")
                     .Options;
+            DatabaseProcessKey key = DatabaseProcessKey.GenerateKey(PriorityType.Normal);
 
 
-            WebScrapingContext context = DatabaseTransactionQueueManager.Instance.GetContext(thread1Id, options);
+            WebScrapingContext context = DatabaseTransactionQueue.Instance.GetContext(key, options);
             context.Database.AutoTransactionsEnabled = false;
 
             Assert.IsTrue(context.Database.CanConnect());
@@ -60,12 +61,11 @@ namespace GK.WebScraping.Test
 
                 Page newPage = new Page()
                 {
-                    PageId = Guid.NewGuid(),
                     LastReadDate = null,
                     CreateDate = DateTime.Now,
                     DeleteDate = DateTime.Now,
                     MapStatus = (short)MapStatusType.None,
-                    Url = "testpage_" + thread1Id + "_" + i,
+                    Url = "testpage_" + i,
                     Status = (short)StatusType.Active,
                     StoreId = Guid.Parse("F7BF1777-8275-4879-BC6B-B2B8A8387489")
                 };
@@ -74,8 +74,8 @@ namespace GK.WebScraping.Test
             }
 
 
-            DatabaseTransactionQueueManager.Instance.QueueTransaction(
-                DatabaseProcessKey.GenerateKey(DatabaseQueuePriorityType.High),
+            DatabaseTransactionQueue.Instance.Enqueue(
+                DatabaseProcessKey.GenerateKey(PriorityType.High),
                 writeTransaction);
 
 
@@ -108,9 +108,10 @@ namespace GK.WebScraping.Test
 
         private void ReadOperation(object obj)
         {
-            Guid threadID = Guid.Parse(obj.ToString());
+            DatabaseProcessKey key = DatabaseProcessKey.GenerateKey(PriorityType.Normal);
 
-            WebScrapingContext context = DatabaseTransactionQueueManager.Instance.GetContext(threadID);
+
+            WebScrapingContext context = DatabaseTransactionQueue.Instance.GetContext(key);
             IDbContextTransaction transaction = context.Database.BeginTransaction();
 
             Random rnd = new Random();
@@ -122,14 +123,14 @@ namespace GK.WebScraping.Test
                 var result = context.Pages.Where(x => x.Url.StartsWith("testpage_") && x.Url.EndsWith("_" + i) && x.DeleteDate.HasValue);
             }
 
-            DatabaseTransactionQueueManager.Instance.QueueTransaction(
-                DatabaseProcessKey.GenerateKey(DatabaseQueuePriorityType.Normal),
+            DatabaseTransactionQueue.Instance.Enqueue(
+                DatabaseProcessKey.GenerateKey(PriorityType.Normal),
                 transaction);
         }
 
         private void WriteOperation(object obj)
         {
-            Guid threadID = Guid.Parse(obj.ToString());
+            DatabaseProcessKey key = DatabaseProcessKey.GenerateKey(PriorityType.Normal);
 
             //Init database
 
@@ -144,7 +145,7 @@ namespace GK.WebScraping.Test
                     .Options;
 
 
-            WebScrapingContext context = DatabaseTransactionQueueManager.Instance.GetContext(threadID, options);
+            WebScrapingContext context = DatabaseTransactionQueue.Instance.GetContext(key, options);
             IDbContextTransaction transaction = context.Database.BeginTransaction();
 
             Random rnd = new Random();
@@ -156,12 +157,11 @@ namespace GK.WebScraping.Test
 
                 Page newPage = new Page()
                 {
-                    PageId = Guid.NewGuid(),
                     LastReadDate = null,
                     CreateDate = DateTime.Now,
                     DeleteDate = DateTime.Now,
                     MapStatus = (short)MapStatusType.None,
-                    Url = "testpage_" + threadID + "_" + i,
+                    Url = "testpage_" + i,
                     Status = (short)StatusType.Active,
                     StoreId = Guid.Parse("F7BF1777-8275-4879-BC6B-B2B8A8387489")
                 };
@@ -169,9 +169,7 @@ namespace GK.WebScraping.Test
                 context.Pages.Add(newPage);
             }
 
-            DatabaseTransactionQueueManager.Instance.QueueTransaction(
-                new DatabaseProcessKey(threadID, DatabaseQueuePriorityType.High),
-                transaction);
+            DatabaseTransactionQueue.Instance.Enqueue(key, transaction);
 
 
         }

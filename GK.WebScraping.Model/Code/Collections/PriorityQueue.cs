@@ -19,7 +19,7 @@ namespace GK.WebScraping.Model.Code.Collections
         /// Push and Pop are each O(log N). Pushing N objects and them popping
         /// them all is equivalent to performing a heap sort and is O(N log N).
         /// </remarks>
-        public class PriorityQueue<T>
+        public class PriorityQueue<T> : IDisposable
         {
             //
             // The _heap array represents a binary tree with the "shape" property.
@@ -279,11 +279,18 @@ namespace GK.WebScraping.Model.Code.Collections
                 return i + 1;
             }
 
+            public void Dispose()
+            {
+                this._heap = new T[0];
+                this._count = 0;
+                this.Heapify();
+            }
+
             private T[] _heap;
             private int _count;
             private IComparer<T> _comparer;
             private bool _isHeap;
-            private const int DefaultCapacity = 6;
+            private const int DefaultCapacity = 256;
 
             #endregion
         }

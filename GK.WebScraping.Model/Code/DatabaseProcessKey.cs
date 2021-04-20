@@ -7,15 +7,15 @@ namespace GK.WebScraping.Model
     public class DatabaseProcessKey
     {
         public Guid OperationID { get; set; }
-        public DatabaseQueuePriorityType Priority { get; set; }
+        public PriorityType Priority { get; set; }
 
-        private DatabaseProcessKey(DatabaseQueuePriorityType priorityType)
+        private DatabaseProcessKey(PriorityType priorityType)
         {
             this.OperationID = Guid.NewGuid();
             this.Priority = priorityType;
         }
 
-        public static DatabaseProcessKey GenerateKey(DatabaseQueuePriorityType priorityType)
+        public static DatabaseProcessKey GenerateKey(PriorityType priorityType)
         {
             return new DatabaseProcessKey(priorityType);
         }

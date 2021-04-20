@@ -2,10 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="DatabaseManager.cs" />
+    <Compile Remove="DatabaseTransactionQueueManager.cs" />
+    <Compile Remove="WebScrapingContext_sample.cs" />
   </ItemGroup>
 
   <ItemGroup>

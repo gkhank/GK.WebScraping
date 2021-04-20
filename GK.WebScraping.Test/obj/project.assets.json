@@ -8,6 +8,15 @@
           "build/netstandard1.0/coverlet.collector.targets": {}
         }
       },
+      "HtmlAgilityPack/1.11.32": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/HtmlAgilityPack.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/HtmlAgilityPack.dll": {}
+        }
+      },
       "Microsoft.CodeCoverage/16.5.0": {
         "type": "package",
         "compile": {
@@ -3079,6 +3088,21 @@
         "runtime": {
           "bin/placeholder/GK.WebScraping.Model.dll": {}
         }
+      },
+      "GK.WebScraping.Utilities/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "GK.WebScraping.DB": "1.0.0",
+          "GK.WebScraping.Model": "1.0.0",
+          "HtmlAgilityPack": "1.11.32"
+        },
+        "compile": {
+          "bin/placeholder/GK.WebScraping.Utilities.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/GK.WebScraping.Utilities.dll": {}
+        }
       }
     }
   },
@@ -3112,6 +3136,54 @@
         "build/netstandard1.0/coverlet.core.pdb",
         "coverlet.collector.1.2.0.nupkg.sha512",
         "coverlet.collector.nuspec"
+      ]
+    },
+    "HtmlAgilityPack/1.11.32": {
+      "sha512": "c5eNfxPDvQSh7YClPuo+xkD1d5F4Qms4g+MG1UktytdHk/mvCFsbopLIsk+AKqByPmPvSl/xVmyogRBejf0DyQ==",
+      "type": "package",
+      "path": "htmlagilitypack/1.11.32",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "htmlagilitypack.1.11.32.nupkg.sha512",
+        "htmlagilitypack.nuspec",
+        "lib/Net35/HtmlAgilityPack.dll",
+        "lib/Net35/HtmlAgilityPack.pdb",
+        "lib/Net35/HtmlAgilityPack.xml",
+        "lib/Net40-client/HtmlAgilityPack.dll",
+        "lib/Net40-client/HtmlAgilityPack.pdb",
+        "lib/Net40-client/HtmlAgilityPack.xml",
+        "lib/Net40/HtmlAgilityPack.XML",
+        "lib/Net40/HtmlAgilityPack.dll",
+        "lib/Net40/HtmlAgilityPack.pdb",
+        "lib/Net45/HtmlAgilityPack.XML",
+        "lib/Net45/HtmlAgilityPack.dll",
+        "lib/Net45/HtmlAgilityPack.pdb",
+        "lib/NetCore45/HtmlAgilityPack.XML",
+        "lib/NetCore45/HtmlAgilityPack.dll",
+        "lib/NetCore45/HtmlAgilityPack.pdb",
+        "lib/netstandard1.3/HtmlAgilityPack.deps.json",
+        "lib/netstandard1.3/HtmlAgilityPack.dll",
+        "lib/netstandard1.3/HtmlAgilityPack.pdb",
+        "lib/netstandard1.3/HtmlAgilityPack.xml",
+        "lib/netstandard1.6/HtmlAgilityPack.deps.json",
+        "lib/netstandard1.6/HtmlAgilityPack.dll",
+        "lib/netstandard1.6/HtmlAgilityPack.pdb",
+        "lib/netstandard1.6/HtmlAgilityPack.xml",
+        "lib/netstandard2.0/HtmlAgilityPack.deps.json",
+        "lib/netstandard2.0/HtmlAgilityPack.dll",
+        "lib/netstandard2.0/HtmlAgilityPack.pdb",
+        "lib/netstandard2.0/HtmlAgilityPack.xml",
+        "lib/portable-net45+netcore45+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.XML",
+        "lib/portable-net45+netcore45+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.dll",
+        "lib/portable-net45+netcore45+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.pdb",
+        "lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.XML",
+        "lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.dll",
+        "lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.pdb",
+        "lib/uap10.0/HtmlAgilityPack.XML",
+        "lib/uap10.0/HtmlAgilityPack.dll",
+        "lib/uap10.0/HtmlAgilityPack.pdb",
+        "lib/uap10.0/HtmlAgilityPack.pri"
       ]
     },
     "Microsoft.CodeCoverage/16.5.0": {
@@ -10214,11 +10286,17 @@
       "type": "project",
       "path": "../GK.WebScraping.Model/GK.WebScraping.Model.csproj",
       "msbuildProject": "../GK.WebScraping.Model/GK.WebScraping.Model.csproj"
+    },
+    "GK.WebScraping.Utilities/1.0.0": {
+      "type": "project",
+      "path": "../GK.WebScraping.Utilities/GK.WebScraping.Utilities.csproj",
+      "msbuildProject": "../GK.WebScraping.Utilities/GK.WebScraping.Utilities.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "GK.WebScraping.DB >= 1.0.0",
+      "GK.WebScraping.Utilities >= 1.0.0",
       "MSTest.TestAdapter >= 2.1.0",
       "MSTest.TestFramework >= 2.1.0",
       "Microsoft.NET.Test.Sdk >= 16.5.0",
@@ -10258,6 +10336,9 @@
           "projectReferences": {
             "D:\\Projects\\GK.WebScraping\\GK.WebScraping.DB\\GK.WebScraping.DB.csproj": {
               "projectPath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.DB\\GK.WebScraping.DB.csproj"
+            },
+            "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Utilities\\GK.WebScraping.Utilities.csproj": {
+              "projectPath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Utilities\\GK.WebScraping.Utilities.csproj"
             }
           }
         }

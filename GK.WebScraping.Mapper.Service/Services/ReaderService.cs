@@ -15,17 +15,11 @@ namespace GK.WebScraping.Mapper.Service
         protected override void InitThreads()
         {
             this._threads = new List<ThreadBase>();
-            this._threads.Add(new ReaderThread(this._logger, 1, 20));
-            this._threads.Add(new ReaderThread(this._logger, 2, 20));
-            this._threads.Add(new ReaderThread(this._logger, 3, 20));
-            this._threads.Add(new ReaderThread(this._logger, 5, 20));
-            this._threads.Add(new ReaderThread(this._logger, 6, 20));
-            this._threads.Add(new ReaderThread(this._logger, 7, 20));
-            this._threads.Add(new ReaderThread(this._logger, 8, 20));
-            this._threads.Add(new ReaderThread(this._logger, 9, 20));
-            this._threads.Add(new ReaderThread(this._logger, 10, 20));
-            this._threads.Add(new ReaderThread(this._logger, 11, 20));
-            this._threads.Add(new ReaderThread(this._logger, 12, 20));
+            this._threads.Add(new ReaderThread(this._logger, 1, 500));
+            //this._threads.Add(new ReaderThread(this._logger, 2, 5));
+            //this._threads.Add(new ReaderThread(this._logger, 3, 5));
+            //this._threads.Add(new ReaderThread(this._logger, 5, 5));
+            //this._threads.Add(new ReaderThread(this._logger, 6, 5));
         }
 
         protected override void Start()

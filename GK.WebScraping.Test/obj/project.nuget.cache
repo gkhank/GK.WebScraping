@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "b/0oxKr0TeMyFCodSqzlh54sT+LoETvFJd3vFy4JsSyMxS+l3R4zEsNd9pXf4DlhOwNcWtzekPoTSNP4I1J63g==",
+  "dgSpecHash": "TXY+WFQDXoDN0Ief7e0Mmc/0c0Zik3i6uKq3GYHQlcKuK3RQwcSwiGLoMI+sDYdQG35dzH9tZpIrdjAS6fcB+g==",
   "success": true,
   "projectFilePath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Test\\GK.WebScraping.Test.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\gkhan\\.nuget\\packages\\coverlet.collector\\1.2.0\\coverlet.collector.1.2.0.nupkg.sha512",
+    "C:\\Users\\gkhan\\.nuget\\packages\\htmlagilitypack\\1.11.32\\htmlagilitypack.1.11.32.nupkg.sha512",
     "C:\\Users\\gkhan\\.nuget\\packages\\microsoft.codecoverage\\16.5.0\\microsoft.codecoverage.16.5.0.nupkg.sha512",
     "C:\\Users\\gkhan\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\gkhan\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",

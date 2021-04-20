@@ -1,15 +1,15 @@
 ﻿using GK.WebScraping.DB;
 using GK.WebScraping.Model;
+using GK.WebScraping.Model.Code.Operations;
 using GK.WebScraping.Utilities;
+using GK.WebScraping.Utilities.Queues;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 
 namespace GK.WebScraping.Mapper.Service.Thread
@@ -30,9 +30,8 @@ namespace GK.WebScraping.Mapper.Service.Thread
             this._htmlUtils = new HtmlUtilities();
             this._bulkSize = bulkSize;
             this._run = true;
-            DatabaseTransactionQueueManager.Instance.InitLogger(logger);
+            DatabaseTransactionQueue.Instance.InitLogger(logger);
         }
-
 
         private void TimerCallBack(object state)
         {
@@ -52,10 +51,11 @@ namespace GK.WebScraping.Mapper.Service.Thread
                 this._lastAcceptableReadDate = DateTime.Now.AddDays(-1);
 
 
-                DatabaseProcessKey operationKey = DatabaseProcessKey.GenerateKey(DatabaseQueuePriorityType.Normal);
-                this._context = DatabaseTransactionQueueManager.Instance.GetContext(operationKey);
+                DatabaseProcessKey operationKey = DatabaseProcessKey.GenerateKey(PriorityType.Low);
+                this._context = DatabaseTransactionQueue.Instance.GetContext(operationKey);
+                IDbContextTransaction transaction = this._context.Database.BeginTransaction();
 
-                Dictionary<Guid, Page> pages = this.GetPagesData();
+                Dictionary<Int32, Page> pages = this.GetPagesData();
 
                 //If there is no pages to read. Sleep thread until next time...
                 if (pages == null ||
@@ -71,38 +71,26 @@ namespace GK.WebScraping.Mapper.Service.Thread
 
                 Int32 processCount = 0;
 
-                IDbContextTransaction transaction = this._context.Database.BeginTransaction();
+                List<String> links = new List<string>();
                 try
                 {
-                    List<String> processedUrls = new List<string>();
                     foreach (var page in pages.Values)
                     {
                         String html = null;
-
-                        this.Update(page, ref html);
+                        this.Update(page, ref html, ref links);
                         processCount++;
-
-                        //Read all links for every content and save them to database to be read on next execution.
-                        String[] pageUrls = _htmlUtils.GetLinksInHtml(html, page.Store.RootUrl).ToArray();
-                        processedUrls.AddRange(this.InsertPageLinks(page.StoreId, pageUrls));
-
                     }
-                    processCount += processedUrls.Count;
 
                     //Mark as finished so it can be picked up by any other thread.
-                    OperationCollection<Guid>.MarkAsCompleted(pages.Keys);
-                    OperationCollection<String>.MarkAsCompleted(processedUrls);
-
-
-                    DatabaseTransactionQueueManager.Instance.QueueTransaction(operationKey, transaction);
+                    OperationCollection<Int32>.MarkAsCompleted(pages.Keys);
+                    OperationCollection<String>.MarkAsCompleted(links);
+                    DatabaseTransactionQueue.Instance.Enqueue(operationKey, transaction);
 
                 }
                 catch (Exception e)
                 {
                     this._logger.LogError(e, e.Message);
                 }
-
-                this._logger.LogInformation("Iteration finished and {0} processed {1} pages.", this.ThreadName, processCount);
             }
         }
 
@@ -118,26 +106,31 @@ namespace GK.WebScraping.Mapper.Service.Thread
             }
         }
 
-        private Dictionary<Guid, Page> GetPagesData()
+        private Dictionary<Int32, Page> GetPagesData()
         {
 
             try
             {
-                Dictionary<Guid, Page> retval = this._context.Pages
-                    .Where(x =>
-                    OperationCollection<Guid>.OngoingProcesses.Contains(x.PageId) == false &&
-                    OperationCollection<String>.OngoingProcesses.Contains(x.Url) == false &&
-                    x.DeleteDate.HasValue == false &&
-                    x.Status == (Int32)StatusType.Active &&
-                    (x.LastReadDate.HasValue == false || x.LastReadDate <= this._lastAcceptableReadDate))
-                    .Take(this._bulkSize)
-                    .Include(x => x.Store)
-                    .ToDictionary(x => x.PageId);
+                DatabaseProcessKey operationKey = DatabaseProcessKey.GenerateKey(PriorityType.Low);
+
+                using (var innerContext = DatabaseTransactionQueue.Instance.GetContext(operationKey))
+                {
+                    Dictionary<Int32, Page> retval = innerContext.Pages
+                        .Where(x =>
+                        OperationCollection<Int32>.OngoingProcesses.Contains(x.PageId) == false &&
+                        OperationCollection<String>.OngoingProcesses.Contains(x.Url) == false &&
+                        x.DeleteDate.HasValue == false &&
+                        x.Status == (Int32)StatusType.Active &&
+                        (x.LastReadDate.HasValue == false || x.LastReadDate <= this._lastAcceptableReadDate))
+                        .Take(this._bulkSize)
+                        .Include(x => x.Store)
+                        .ToDictionary(x => x.PageId);
+
+                    OperationCollection<Int32>.MarkAsOngoing(retval.Keys);
+                    return retval;
+                }
 
 
-                OperationCollection<Guid>.MarkAsOngoing(retval.Keys);
-
-                return retval;
             }
             catch (Exception ex)
             {
@@ -154,24 +147,15 @@ namespace GK.WebScraping.Mapper.Service.Thread
 
 
             List<String> retval = new List<string>();
-            Dictionary<String, Page> databasePages = new Dictionary<string, Page>();
-            var existingPages = this._context.Pages.Where(x => pageUrls.Contains(x.Url));
-            foreach (var ep in existingPages)
-            {
-                if (databasePages.ContainsKey(ep.Url) == false)
-                    databasePages.Add(ep.Url, ep);
-            }
 
             foreach (String pageUrl in pageUrls)
             {
-                //Not in database.
-                if (databasePages.TryGetValue(pageUrl, out Page existingPage) == false &&
-                    OperationCollection<String>.OngoingProcesses.Contains(pageUrl) == false)
+                if (OperationCollection<String>.OngoingProcesses.Contains(pageUrl) == false)
                 {
+                    OperationCollection<String>.OngoingProcesses.Add(pageUrl);
 
                     Page newPage = new Page()
                     {
-                        PageId = Guid.NewGuid(),
                         LastReadDate = null,
                         CreateDate = DateTime.Now,
                         DeleteDate = null,
@@ -181,10 +165,8 @@ namespace GK.WebScraping.Mapper.Service.Thread
                         StoreId = storeId //Assign same storeId from parent page.
                     };
 
-                    this._context.Pages.Add(newPage);
+                    this._context.Pages.Update(newPage);
                     retval.Add(pageUrl);
-                    //Lock this url
-                    OperationCollection<String>.OngoingProcesses.Add(pageUrl);
                 }
             }
 
@@ -193,12 +175,12 @@ namespace GK.WebScraping.Mapper.Service.Thread
 
         }
 
-        private void Update(Page page, ref string html)
+        private void Update(Page page, ref string html, ref List<string> links)
         {
             try
             {
                 //Update content
-                String fileName = String.Format("{0}.html", page.PageId.ToString()); // DateTime.Now.ToString("yyyy_MM_dd_HH_mm")
+                String fileName = page.PageId + ".html";
                 String directoryPath = Path.Combine(FileHelper.PagesDirectory, page.StoreId.ToString());
 
                 if (Directory.Exists(directoryPath) == false)
@@ -211,25 +193,25 @@ namespace GK.WebScraping.Mapper.Service.Thread
                     DateTime lastFileUpdateTime = new FileInfo(fullPath).LastWriteTime;
                     if (lastFileUpdateTime < this._lastAcceptableReadDate)
                     {
-                        this.UpdateFile(page.Url, fullPath, ref html);
+                        this.UpdateFileFromRemote(page.StoreId, page.Store.RootUrl, page.Url, fullPath, ref html, ref links);
                         this.UpdateDatabaseContext(page, DateTime.Now);
                     }
                     else
                     {
-                        this._logger.LogWarning("File was saved at '{0}'. Attempted to read HTML unneccsarily for '{0}'. Using existing content.", lastFileUpdateTime.ToString("yyyy-MM-dd HH:mm"), page.Url);
-                        //Save read time on database so we won't try anymore...
-                        this.UpdateDatabaseContext(page, lastFileUpdateTime);
-                        html = this.ReadFile(fullPath);
+                        FileOperation fileOperation = FileOperation.Create(fullPath, FileOperation.OperationType.Read);
+                        fileOperation.Metadata.Add("Page", page);
+                        FileOperationsQueue.Instance.Enqueue(fileOperation, this.FileReadingCompleted);
                     }
                 }
                 else
                 {
-                    this.UpdateFile(page.Url, fullPath, ref html);
+                    this.UpdateFileFromRemote(page.StoreId, page.Store.RootUrl, page.Url, fullPath, ref html, ref links);
                     this.UpdateDatabaseContext(page, DateTime.Now);
-
                 }
-
-
+            }
+            catch (IOException iex)
+            {
+                this._logger.LogError(iex, iex.Message);
             }
             catch (Exception ex)
             {
@@ -237,31 +219,41 @@ namespace GK.WebScraping.Mapper.Service.Thread
             }
         }
 
-        private string ReadFile(string fullPath)
+        private void FileReadingCompleted(object sender, object processResult)
         {
-            return File.ReadAllText(fullPath);
+            String html = processResult as String;
+            FileOperation operation = sender as FileOperation;
+
+            if (operation.Metadata.TryGetValue("Page", out object pageObject))
+            {
+                Page page = pageObject as Page;
+
+                OperationCollection<Int32>.OngoingProcesses.Add(page.PageId);
+
+                page.LastReadDate = DateTime.Now;
+
+                DatabaseProcessKey operationKey = DatabaseProcessKey.GenerateKey(PriorityType.High);
+                var context = DatabaseTransactionQueue.Instance.GetContext(operationKey);
+
+                IDbContextTransaction transaction = context.Database.BeginTransaction();
+                context.Update(page);
+
+                DatabaseTransactionQueue.Instance.Enqueue(operationKey, transaction);
+            }
         }
 
-        private void UpdateFile(String url, String fullPath, ref String html)
+        private void UpdateFileFromRemote(Guid storeID, String rootUrl, String url, String fullPath, ref String html, ref List<string> links)
         {
+            html = this._htmlUtils.GetHtmlContent(url);
 
-            using (FileStream fs = new FileStream(fullPath, FileMode.OpenOrCreate))
-            {
-                using (StreamWriter writer = new StreamWriter(fs))
-                {
-                    Stopwatch readWatch = new Stopwatch();
-                    readWatch.Start();
-                    this._logger.LogInformation("Reading content for '{0}'...", url);
-                    html = _htmlUtils.GetHtmlContent(url);
-                    writer.Write(html);
-                    readWatch.Stop();
-                    this._logger.LogInformation("Reading content is done and process was done in {0} ms.", readWatch.ElapsedMilliseconds);
+            var htmlLinks = this._htmlUtils.GetLinksInHtml(html, rootUrl);
 
-                    writer.Dispose();
-                }
-                fs.Dispose();
-            }
+            links.AddRange(htmlLinks);
 
+            this.InsertPageLinks(storeID, htmlLinks.ToArray());
+
+            FileOperation operation = FileOperation.Create(fullPath, FileOperation.OperationType.CreateOrUpdate, html);
+            FileOperationsQueue.Instance.Enqueue(operation);
         }
 
         private void UpdateDatabaseContext(Page page, DateTime updateDate)
@@ -269,7 +261,6 @@ namespace GK.WebScraping.Mapper.Service.Thread
             page.MapStatus = (short)MapStatusType.ContentReady;
             page.LastReadDate = updateDate;
             this._context.Update(page);
-
         }
 
         public override void Stop()

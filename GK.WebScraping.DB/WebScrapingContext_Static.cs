@@ -10,16 +10,26 @@ namespace GK.WebScraping.DB
 {
     public partial class WebScrapingContext : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+
+        protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
-            if (!optionsBuilder.IsConfigured)
+
+            if (!builder.IsConfigured)
             {
                 if (Environment.MachineName == "GK-WS1")
-                    optionsBuilder.UseSqlServer("Server=ec2-13-48-31-67.eu-north-1.compute.amazonaws.com;Database=WebScraping;User Id=SQL_Application;Password=*lZ[}0mB]*)00(o;");
+                    builder.UseSqlServer("Server=ec2-13-48-31-67.eu-north-1.compute.amazonaws.com;Database=WebScraping;User Id=SQL_Application;Password=*lZ[}0mB]*)00(o;");
                 else
-                    optionsBuilder.UseSqlServer("Server=localhost;Database=WebScraping;Trusted_Connection=True");
+                    builder.UseSqlServer("Server=localhost;Database=WebScraping;Trusted_Connection=True");
 
             }
+
+        }
+
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Page>()
+                    .HasIndex(u => u.Url)
+                    .IsUnique();
         }
     }
 }

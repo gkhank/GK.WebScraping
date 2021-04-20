@@ -51,7 +51,13 @@ namespace GK.WebScraping.DB
 
         }
 
+        /// <summary>
+        /// Use this to initiate a global logged to receive log messages from DatabaseTransactionQueueManager
+        /// </summary>
+        /// <param name="logger"></param>
+        /// 
 
+        #region Logger methods
         public void InitLogger(ILogger logger)
         {
             this._logger = logger;
@@ -80,39 +86,49 @@ namespace GK.WebScraping.DB
                 }
         }
 
-
         private void WriteLog(Exception ex)
         {
             if (this._logger != null)
                 this._logger.LogError(ex, "{0} \n {1}", ex.Message, ex.StackTrace);
         }
 
+
+        /// <summary>
+        /// Creates a database context to perform changes on. Every operation get a different instance of WebScrapingContext
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="options"></param>
+        /// <returns>Returns a unique WebScrapingContext instance to perform database changes.</returns>
         public WebScrapingContext GetContext(DatabaseProcessKey key, DbContextOptions<WebScrapingContext> options = null)
         {
             if (this._activeContexts.ContainsKey(key.OperationID) == false)
-                this.InitThreadContext(key.OperationID, options);
+                this.InitContext(key.OperationID, options);
             return this._activeContexts[key.OperationID];
         }
+        #endregion
 
-        public async void QueueTransaction(DatabaseProcessKey key, IDbContextTransaction transaction)
+        /// <summary>
+        /// Queues a database transaction to be performed in given priority.
+        /// </summary>
+        /// <param name="key">DatabaseProcessKey.GenerateKey with a desired priority</param>
+        /// <param name="transaction">EF database transaction</param>
+        public void QueueTransaction(DatabaseProcessKey key, IDbContextTransaction transaction)
         {
             if (this._activeContexts.TryGetValue(key.OperationID, out WebScrapingContext context) == false)
                 throw new Exception("No active context could be found for this thread. Please define database context before queuing a transaction");
-
 
             //Save changes before enqueue
             context.SaveChanges();
 
             this._queue.Enqueue(new KeyValuePair<DatabaseProcessKey, IDbContextTransaction>(key, transaction));
 
-
-            if (this._numberOfThread == 0)
-                this.ProcessAll();
+            //Ensure the transaction queue is running.
+            this.StartProcess();
         }
 
-        private void InitThreadContext(Guid operationID, DbContextOptions<WebScrapingContext> options = null)
-        {
 
+        private void InitContext(Guid operationID, DbContextOptions<WebScrapingContext> options = null)
+        {
             WebScrapingContext newContext = options == null ? new WebScrapingContext() : new WebScrapingContext(options);
             newContext.Database.AutoTransactionsEnabled = false;
             this._activeContexts.Add(operationID, newContext);
@@ -125,66 +141,74 @@ namespace GK.WebScraping.DB
         /// <returns>Boolean success</returns>
         public async Task<Boolean> ProcessItemAsync(KeyValuePair<DatabaseProcessKey, IDbContextTransaction> process)
         {
+            //Lock the thread so only one item would be processed at a time.
+            await asyncLock.WaitAsync();
+
             if (this._activeContexts.TryGetValue(process.Key.OperationID, out WebScrapingContext context) == false)
                 throw new Exception(String.Format("Could not find any active context for thread '{0}'", process.Key.OperationID.ToString()));
 
-            //Do not dispose context in using scope. Only transaction needs to be disposed at this point.
 
-            using (context)
-            using (IDbContextTransaction transaction = process.Value)
-            {
-                try
-                {
-                    await transaction.CreateSavepointAsync("Before");
-
-                    await transaction.CommitAsync();
-
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    await transaction.RollbackToSavepointAsync("Before");
-                    return false;
-                }
-
-            }
-
-
-        }
-
-        private async Task ProcessAll()
-        {
-            // Lock this up so that one thread at a time can get through here.  
-            // Others will do an async await until it is their turn.
-            await asyncLock.WaitAsync();
+            IDbContextTransaction transaction = process.Value;
+            Boolean isSuccessful = false;
             try
             {
-                // Offload this to a background thread (so that the UI is not affected)
-                var queueProcessingTask = Task.Run(() =>
-                {
-                    this._numberOfThread++;
-                    var isSuccessful = false;
-                    while (this._queue.Count >= 1 && !isSuccessful)
-                    {
-                        // Get the next item
-                        var nextItem = this._queue.NextItem;
-                        // Try to process this one. (ie DoStuff)
-                        isSuccessful = ProcessItemAsync(nextItem).GetAwaiter().GetResult();
-                        // If we processed successfully, then we can dequeue the item
-                        if (isSuccessful)
-                        {
-                            this._queue.Pop();
-                            this.DumpThreadContext(nextItem.Key.OperationID);
-                        }
-                    }
-                    this._numberOfThread--;
-                });
+                await transaction.CreateSavepointAsync("Before");
 
+                await transaction.CommitAsync();
+
+                isSuccessful = true;
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackToSavepointAsync("Before");
+                isSuccessful = false;
+                this.WriteLog(ex);
             }
             finally
             {
+                if (isSuccessful)
+                {
+                    transaction.Dispose();
+                    context.Dispose();
+                }
                 asyncLock.Release();
             }
+
+            return isSuccessful;
+        }
+
+
+        /// <summary>
+        /// Ensures that process queue is running.
+        /// </summary>
+        private void StartProcess()
+        {
+
+            //If the thread is running, just return.
+            if (this._numberOfThread > 0)
+                return;
+
+            // Offload this to a background thread (so that the UI is not affected)
+            var queueProcessingTask = Task.Run(() =>
+            {
+                this._numberOfThread++;
+                var isSuccessful = false;
+                while (this._queue.Count >= 1 && !isSuccessful)
+                {
+                    // Get the next item
+                    var nextItem = this._queue.NextItem;
+                    // Try to process this one. (ie DoStuff)
+                    isSuccessful = ProcessItemAsync(nextItem).GetAwaiter().GetResult();
+                    // If we processed successfully, then we can dequeue the item
+                    if (isSuccessful)
+                    {
+                        this._queue.Pop();
+                        this.DumpThreadContext(nextItem.Key.OperationID);
+                    }
+                }
+                this._numberOfThread--;
+            });
+
         }
 
         /// <summary>

@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GK.WebScraping.DB\GK.WebScraping.DB.csproj" />
+    <ProjectReference Include="..\GK.WebScraping.Utilities\GK.WebScraping.Utilities.csproj" />
   </ItemGroup>
 
 </Project>
