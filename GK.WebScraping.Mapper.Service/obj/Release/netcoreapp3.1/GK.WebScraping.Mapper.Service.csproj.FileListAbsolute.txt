@@ -165,3 +165,4 @@ D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Release\netcoreapp3
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Release\netcoreapp3.1\GK.WebScraping.Mapper.Service.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Release\netcoreapp3.1\GK.WebScraping.Mapper.Service.pdb
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Release\netcoreapp3.1\GK.WebScraping.Mapper.Service.genruntimeconfig.cache
+D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Release\netcoreapp3.1\System.Text.Json.dll

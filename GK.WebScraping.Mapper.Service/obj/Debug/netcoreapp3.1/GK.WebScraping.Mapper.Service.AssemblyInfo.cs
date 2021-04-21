@@ -11,6 +11,7 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("dotnet-GK.WebScraping.Mapper.Service-5BDBD55F-6CFC-4448-8FCD-8BB3D161D852")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("GK.WebScraping.Mapper.Service")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]

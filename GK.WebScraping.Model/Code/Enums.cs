@@ -25,9 +25,11 @@ namespace GK.WebScraping.Model
     public enum MapStatusType
     {
         None,
+        ContentInProgress,
         ContentReady,
-        LinksRead,
-        Mapped
+        MappingInProgress,
+        MapReady,
+        Invalid
     }
 
     public enum PriorityType

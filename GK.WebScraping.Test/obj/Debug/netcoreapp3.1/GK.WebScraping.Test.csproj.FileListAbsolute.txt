@@ -443,3 +443,6 @@ D:\Projects\GK.WebScraping\GK.WebScraping.Test\obj\Debug\netcoreapp3.1\GK.WebScr
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\obj\Debug\netcoreapp3.1\GK.WebScraping.Test.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\obj\Debug\netcoreapp3.1\GK.WebScraping.Test.pdb
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\obj\Debug\netcoreapp3.1\GK.WebScraping.Test.genruntimeconfig.cache
+D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Debug\netcoreapp3.1\CoverletSourceRootsMapping
+D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Debug\netcoreapp3.1\testhost.exe
+D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Debug\netcoreapp3.1\Microsoft.TestPlatform.AdapterUtilities.dll

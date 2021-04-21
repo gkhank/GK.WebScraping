@@ -13,3 +13,5 @@ D:\Projects\GK.WebScraping\GK.WebScraping.DB\obj\Release\netcoreapp3.1\GK.WebScr
 D:\Projects\GK.WebScraping\GK.WebScraping.DB\obj\Release\netcoreapp3.1\GK.WebScraping.DB.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.DB\obj\Release\netcoreapp3.1\GK.WebScraping.DB.pdb
 D:\Projects\GK.WebScraping\GK.WebScraping.DB\obj\Release\netcoreapp3.1\GK.WebScraping.DB.genruntimeconfig.cache
+D:\Projects\GK.WebScraping\GK.WebScraping.DB\bin\Release\netcoreapp3.1\GK.WebScraping.Utilities.dll
+D:\Projects\GK.WebScraping\GK.WebScraping.DB\bin\Release\netcoreapp3.1\GK.WebScraping.Utilities.pdb

@@ -113,11 +113,13 @@ namespace GK.WebScraping.Mapper.Service.Queues
                 return false;
             }
 
+
             using (context)
             using (IDbContextTransaction transaction = process.Value)
             {
                 await transaction.CreateSavepointAsync("Before");
                 await transaction.CommitAsync();
+
             }
 
             return true;

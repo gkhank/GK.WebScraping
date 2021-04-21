@@ -1,14 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using GK.WebScraping.Utilities;
 using Microsoft.EntityFrameworkCore;
-
-#nullable disable
 
 namespace GK.WebScraping.DB
 
 {
     public partial class WebScrapingContext : DbContext
     {
+
+        public virtual ICollection<tvp_IntTable> Tvp_IntTables { get; set; }
+        public virtual ICollection<tvp_StringTable> Tvp_StringTables { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
@@ -35,14 +38,18 @@ namespace GK.WebScraping.DB
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder)
         {
 
-            //modelBuilder.Entity<Page>(entity =>
-            //{
-
-            //    entity
-            //        .Property(e => e.PageId).ValueGeneratedOnAdd();
-
-            //    entity.HasAlternateKey(x => x.Url);
-            //});
+            modelBuilder.Entity<tvp_IntTable>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("tvp_IntTable");
+                entity.Property(x => x.Value).HasColumnName("[value]");
+            })
+            
+            .Entity<tvp_StringTable>(entity=> {
+                entity.HasNoKey();
+                entity.ToView("tvp_StringTable");
+                entity.Property(x => x.Value).HasColumnName("[value]");
+            });
         }
     }
 }
