@@ -10,7 +10,7 @@ namespace GK.WebScraping.Mapper.Service.Thread
     public abstract class ThreadBase
     {
         protected System.Threading.Thread _thread;
-        protected object _lock = new object();
+        protected object _dbLock = new object();
         protected Timer _sleepTimer;
         protected ILogger _logger;
         protected bool _run;
@@ -25,7 +25,7 @@ namespace GK.WebScraping.Mapper.Service.Thread
             this._overallWatch = new Stopwatch();
             this._processWatch = new Stopwatch();
             this._logger = logger;
-            this._lock = new object();
+            this._dbLock = new object();
         }
 
         public void Start()

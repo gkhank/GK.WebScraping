@@ -20,8 +20,10 @@ namespace GK.WebScraping.Mapper.Service
         {
             this._logger.LogWarning(sender.ToString() + " reached max capacity. Sleeping threads for 5 minutes");
 
+
             for (int i = 0; i < this._threads.Count; i++)
-                this._threads[i].SleepThread(DateTime.Now.AddMinutes(5));
+                this._threads[i].SleepThread(
+                    DateTime.Now.AddMilliseconds(Configuration.Instance.Queues.FileOperationQueue.TresholdReachedSleepMiliseconds));
         }
 
         protected override void Init()

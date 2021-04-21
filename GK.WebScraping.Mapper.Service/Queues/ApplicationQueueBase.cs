@@ -26,6 +26,7 @@ namespace GK.WebScraping.Mapper.Service.Queues
         public Boolean IsRunning { get { return this.NumberOfThreads > 0; } }
 
         private Dictionary<T, Action<T, Object>> _callBackCollection;
+        private bool _forceStopped;
 
         protected Dictionary<T, Action<T, Object>> CallbackCollection
         {
@@ -91,7 +92,6 @@ namespace GK.WebScraping.Mapper.Service.Queues
         /// </summary>
         protected virtual void StartProcessingQueue()
         {
-
             // Offload this to a background thread (so that the UI is not affected)
             var queueProcessingTask = Task.Run(() =>
             {
@@ -127,9 +127,11 @@ namespace GK.WebScraping.Mapper.Service.Queues
             try
             {
                 if (this.Queue.Capacity <= this.Queue.Count &&
-                    this.ThresholdReached != null)
+                    this.ThresholdReached != null &&
+                    this._forceStopped == false)
                 {
                     this.ThresholdReached.Invoke(this, EventArgs.Empty);
+                    this._forceStopped = true;
                 }
 
                 var retval = await this.ProcessItem(item);
@@ -170,6 +172,9 @@ namespace GK.WebScraping.Mapper.Service.Queues
         {
             this.CallbackCollection.Add(item, callback);
             this.Queue.Enqueue(item);
+
+            // Offload this to a background thread (so that the UI is not affected)
+            this._forceStopped = false;
 
             if (!this.IsRunning)
                 this.StartProcessingQueue();

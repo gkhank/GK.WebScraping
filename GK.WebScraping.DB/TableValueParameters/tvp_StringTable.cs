@@ -22,7 +22,7 @@ namespace GK.WebScraping.DB
             return record;
         }
 
-        public static SqlParameter GenerateSqlParameter(String parameterName, params object[] values)
+        public static SqlParameter GenerateSqlParameter(String parameterName, object[] values)
         {
             SqlParameter retval = new SqlParameter(parameterName, System.Data.SqlDbType.Structured);
             retval.Value = Array.ConvertAll<object, SqlDataRecord>(values, tvp_StringTable.ToSqlDataRecord);

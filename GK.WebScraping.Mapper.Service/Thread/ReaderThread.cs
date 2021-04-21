@@ -46,29 +46,22 @@ namespace GK.WebScraping.Mapper.Service.Thread
 
                 this._lastAcceptableReadDate = DateTime.Now.AddDays(-1);
 
-                DatabaseProcessKey operationKey = DatabaseProcessKey.GenerateKey(PriorityType.Low);
-                WebScrapingContext context = DatabaseTransactionQueue.Instance.GetContext(operationKey);
-                IDbContextTransaction transaction = context.Database.BeginTransaction(System.Data.IsolationLevel.Serializable);
-
-                Dictionary<Int32, Page> pages = this.GetPagesToProcess(context);
+                Dictionary<Int32, Page> pages = this.GetPagesToProcess();
 
                 //If there is no pages to read. Sleep thread until next time...
                 if (pages == null ||
                     pages.Count == 0)
                 {
-                    DateTime sleepUntil = this.NextRunTime(context);
+                    DateTime sleepUntil = this.NextRunTime();
                     this.SleepThread(sleepUntil);
-                    context.Dispose();
                 }
 
                 try
                 {
                     foreach (var page in pages.Values)
                     {
-                        this.Update(context, page);
+                        this.Update(page);
                     }
-
-                    DatabaseTransactionQueue.Instance.Enqueue(operationKey, transaction);
 
                 }
                 catch (Exception e)
@@ -84,82 +77,89 @@ namespace GK.WebScraping.Mapper.Service.Thread
             base.Stop();
         }
 
-        private DateTime NextRunTime(WebScrapingContext context)
+        private DateTime NextRunTime()
         {
             if (Configuration.Instance.IsDevelopment)
                 return DateTime.Now.AddMinutes(1);
-            context.Database.OpenConnection();
-            var retval = context.Pages.Min(x => x.LastReadDate).Value.AddDays(1);
-            context.Database.CloseConnection();
+            DatabaseProcessKey operationKey = DatabaseProcessKey.GenerateKey(PriorityType.Low);
+            using (WebScrapingContext context = DatabaseTransactionQueue.Instance.GetContext(operationKey))
+            using (IDbContextTransaction transaction = context.Database.BeginTransaction())
+            {
+                return context.Pages.Min(x => x.LastReadDate).Value.AddDays(1);
+            }
 
-            return retval;
         }
-        private Dictionary<Int32, Page> GetPagesToProcess(WebScrapingContext context)
+        private Dictionary<Int32, Page> GetPagesToProcess()
         {
 
             Boolean lockTaken = false;
             try
             {
-                Monitor.Enter(_lock, ref lockTaken);
+                Monitor.Enter(_dbLock, ref lockTaken);
 
                 if (lockTaken)
                 {
-                    context.Database.OpenConnection();
 
-                    String sql = $@"EXEC sp_GetPagesToProcess 
+                    DatabaseProcessKey operationKey = DatabaseProcessKey.GenerateKey(PriorityType.Low);
+                    using (WebScrapingContext context = DatabaseTransactionQueue.Instance.GetContext(operationKey))
+                    using (IDbContextTransaction transaction = context.Database.BeginTransaction(System.Data.IsolationLevel.Serializable))
+                    {
+                        context.Database.OpenConnection();
+
+                        String sql = $@"EXEC sp_GetPagesToProcess 
                                                         {this._bulkSize}, 
                                                         '{this._lastAcceptableReadDate:yyyy-MM-dd HH:mm:ss}', 
                                                         {(Int32)MapStatusType.ContentInProgress}, 
                                                         @excludingMap, 
                                                         {0}";
-                    //Debug.Write(sql);
-                    var result = context.Pages.FromSqlRaw(sql, tvp_IntTable.GenerateSqlParameter("@excludingMap", MapStatusType.ContentInProgress, MapStatusType.MappingInProgress));
-                    #region Raw sql solution (DO NOT USE)
-                    //        context.Pages.FromSqlRaw($@"
-                    //SELECT TOP {this._bulkSize}
-                    // * 
-                    //FROM 
-                    // [Page]
-                    // WITH (XLOCK)
-                    //WHERE
-                    // [Page].status = 1
-                    // AND
-                    // [Page].deleteDate IS NULL
-                    // AND
-                    // (
-                    //  [Page].lastReadDate IS NULL
-                    //  OR
-                    //  [Page].lastReadDate < '{dateString}'
-                    // )
-                    //")
-                    #endregion
-                    #region Linq solution (DO NOT USE)
-                    //context.Pages
-                    //.Where(
-                    //x => x.DeleteDate.HasValue == false &&
-                    //x.Status == (short)StatusType.Active &&
-                    //(x.LastReadDate.HasValue == false || x.LastReadDate.Value < this._lastAcceptableReadDate))
-                    #endregion
+                        //Debug.Write(sql);
+                        var result = context.Pages.FromSqlRaw(sql, tvp_IntTable.GenerateSqlParameter("@excludingMap", new object[] { MapStatusType.ContentInProgress, MapStatusType.MappingInProgress }));
+                        #region Raw sql solution (DO NOT USE)
+                        //        context.Pages.FromSqlRaw($@"
+                        //SELECT TOP {this._bulkSize}
+                        // * 
+                        //FROM 
+                        // [Page]
+                        // WITH (XLOCK)
+                        //WHERE
+                        // [Page].status = 1
+                        // AND
+                        // [Page].deleteDate IS NULL
+                        // AND
+                        // (
+                        //  [Page].lastReadDate IS NULL
+                        //  OR
+                        //  [Page].lastReadDate < '{dateString}'
+                        // )
+                        //")
+                        #endregion
+                        #region Linq solution (DO NOT USE)
+                        //context.Pages
+                        //.Where(
+                        //x => x.DeleteDate.HasValue == false &&
+                        //x.Status == (short)StatusType.Active &&
+                        //(x.LastReadDate.HasValue == false || x.LastReadDate.Value < this._lastAcceptableReadDate))
+                        #endregion
 
 
-                    //Try to replace it with .Include if they add support to FromSqlRaw().Include in the future.
-                    #region Tidious store inclusion
-                    HashSet<Guid> storeIDs = new HashSet<Guid>();
-                    Dictionary<Int32, Page> retval = new Dictionary<int, Page>();
-                    foreach (var item in result)
-                    {
-                        storeIDs.Add(item.StoreId);
-                        retval.Add(item.PageId, item);
+                        //Try to replace it with .Include if they add support to FromSqlRaw().Include in the future.
+                        #region Tidious store inclusion
+                        HashSet<Guid> storeIDs = new HashSet<Guid>();
+                        Dictionary<Int32, Page> retval = new Dictionary<int, Page>();
+                        foreach (var item in result)
+                        {
+                            storeIDs.Add(item.StoreId);
+                            retval.Add(item.PageId, item);
+                        }
+
+                        Dictionary<Guid, Store> relatedStoresById = context.Stores.Where(x => storeIDs.Contains(x.StoreId)).ToDictionary(x => x.StoreId);
+
+                        foreach (Page item in retval.Values)
+                            if (relatedStoresById.TryGetValue(item.StoreId, out Store store))
+                                item.Store = store;
+                        #endregion
+                        return retval;
                     }
-
-                    Dictionary<Guid, Store> relatedStoresById = context.Stores.Where(x => storeIDs.Contains(x.StoreId)).ToDictionary(x => x.StoreId);
-
-                    foreach (Page item in retval.Values)
-                        if (relatedStoresById.TryGetValue(item.StoreId, out Store store))
-                            item.Store = store;
-                    #endregion
-                    context.Database.CloseConnection();
-                    return retval;
                 }
                 else
                     throw new Exception("Could not retrieve data within given time");
@@ -173,7 +173,7 @@ namespace GK.WebScraping.Mapper.Service.Thread
             {
                 if (lockTaken)
                 {
-                    Monitor.Exit(_lock);
+                    Monitor.Exit(_dbLock);
                 }
             }
 
@@ -184,7 +184,7 @@ namespace GK.WebScraping.Mapper.Service.Thread
             Boolean lockTaken = false;
             try
             {
-                Monitor.Enter(_lock, ref lockTaken);
+                Monitor.Enter(_dbLock, ref lockTaken);
 
                 if (lockTaken)
                 {
@@ -205,26 +205,47 @@ namespace GK.WebScraping.Mapper.Service.Thread
             {
                 if (lockTaken)
                 {
-                    Monitor.Exit(_lock);
+                    Monitor.Exit(_dbLock);
                 }
             }
 
         }
-        private void CommitPageLinks(WebScrapingContext context, Guid storeId, HashSet<string> pageUrls)
+        private void CommitPageLinks(Guid storeId, HashSet<string> pageUrls)
         {
             if (pageUrls.Count <= 0)
                 return;
-            context.Database.OpenConnection();
 
-            context.Database.ExecuteSqlRaw("EXEC sp_CommitPageLinks @links, @storeID",
-                    tvp_StringTable.GenerateSqlParameter("@links", pageUrls),
-                    new SqlParameter("@storeID", storeId.ToString()));
+            Boolean lockTaken = false;
 
-            context.Database.CloseConnection();
+            try
+            {
+                Monitor.Enter(_dbLock, ref lockTaken);
 
+                if (lockTaken)
+                {
+                    DatabaseProcessKey operationKey = DatabaseProcessKey.GenerateKey(PriorityType.Low);
+
+                    using (WebScrapingContext context = DatabaseTransactionQueue.Instance.GetContext(operationKey))
+                    using (IDbContextTransaction transaction = context.Database.BeginTransaction(System.Data.IsolationLevel.ReadCommitted))
+                    {
+                        context.Database.ExecuteSqlRaw("EXEC sp_CommitPageLinks @links, @storeID",
+                                tvp_StringTable.GenerateSqlParameter("@links", pageUrls.ToArray()),
+                                new SqlParameter("@storeID", storeId.ToString()));
+                        transaction.Commit();
+                        context.SaveChanges();
+                    }
+                }
+            }
+            finally
+            {
+                if (lockTaken)
+                {
+                    Monitor.Exit(_dbLock);
+                }
+            }
 
         }
-        private void Update(WebScrapingContext context, Page page)
+        private void Update(Page page)
         {
             try
             {
@@ -245,8 +266,8 @@ namespace GK.WebScraping.Mapper.Service.Thread
                     //File exists but not valid. Read it again from remote.
                     if (lastFileUpdateTime < this._lastAcceptableReadDate)
                     {
-                        this.UpdateFileFromRemote(context, page.StoreId, page.Store.RootUrl, page.Url, fullPath);
-                        this.UpdateReadDate(context, page, DateTime.Now);
+                        this.UpdateFileFromRemote(page.StoreId, page.Store.RootUrl, page.Url, fullPath);
+                        this.UpdateReadDate(page, DateTime.Now);
                     }
                     //File exists and still valid. Add it to read queue to be processed.
                     else
@@ -259,8 +280,8 @@ namespace GK.WebScraping.Mapper.Service.Thread
                 //File does not exists.
                 else
                 {
-                    this.UpdateFileFromRemote(context, page.StoreId, page.Store.RootUrl, page.Url, fullPath);
-                    this.UpdateReadDate(context, page, DateTime.Now);
+                    this.UpdateFileFromRemote(page.StoreId, page.Store.RootUrl, page.Url, fullPath);
+                    this.UpdateReadDate(page, DateTime.Now);
                 }
             }
             catch (IOException iex)
@@ -286,38 +307,57 @@ namespace GK.WebScraping.Mapper.Service.Thread
             if (operation.Metadata.TryGetValue("Page", out object pageObject))
             {
                 Page page = pageObject as Page;
-                page.LastReadDate = DateTime.Now;
-                page.MapStatus = (short)MapStatusType.ContentReady;
-
-                DatabaseProcessKey operationKey = DatabaseProcessKey.GenerateKey(PriorityType.Normal);
-                WebScrapingContext context = DatabaseTransactionQueue.Instance.GetContext(operationKey);
-
-                IDbContextTransaction transaction = context.Database.BeginTransaction(System.Data.IsolationLevel.Serializable);
-                context.Update(page);
+                this.UpdateReadDate(page, DateTime.Now);
 
                 HashSet<String> htmlLinks = this._htmlUtils.GetLinksInHtml(html, page.Store.RootUrl);
-                this.CommitPageLinks(context, page.StoreId, htmlLinks);
-
-                DatabaseTransactionQueue.Instance.Enqueue(operationKey, transaction);
+                this.CommitPageLinks(page.StoreId, htmlLinks);
             }
         }
 
-        private void UpdateFileFromRemote(WebScrapingContext context, Guid storeID, String rootUrl, String url, String fullPath)
+        private void UpdateFileFromRemote(Guid storeID, String rootUrl, String url, String fullPath)
         {
             String html = this._htmlUtils.GetHtmlContent(url);
 
             var htmlLinks = this._htmlUtils.GetLinksInHtml(html, rootUrl);
 
-            this.CommitPageLinks(context, storeID, htmlLinks);
+            this.CommitPageLinks(storeID, htmlLinks);
 
             FileOperation operation = FileOperation.Create(fullPath, FileOperation.OperationType.CreateOrUpdate, html);
             FileOperationsQueue.Instance.Enqueue(operation);
         }
-        private void UpdateReadDate(WebScrapingContext context, Page page, DateTime updateDate)
+        private void UpdateReadDate(Page page, DateTime updateDate)
         {
-            page.MapStatus = (short)MapStatusType.ContentReady;
-            page.LastReadDate = updateDate;
-            context.Update(page);
+
+            Boolean lockTaken = false;
+
+            try
+            {
+                Monitor.Enter(_dbLock, ref lockTaken);
+
+                if (lockTaken)
+                {
+                    DatabaseProcessKey operationKey = DatabaseProcessKey.GenerateKey(PriorityType.Low);
+
+                    using (WebScrapingContext context = DatabaseTransactionQueue.Instance.GetContext(operationKey))
+                    using (IDbContextTransaction transaction = context.Database.BeginTransaction(System.Data.IsolationLevel.ReadCommitted))
+                    {
+
+                        page.MapStatus = (short)MapStatusType.ContentReady;
+                        page.LastReadDate = updateDate;
+                        context.Update(page);
+                        transaction.Commit();
+                        context.SaveChanges();
+                    }
+                }
+            }
+            finally
+            {
+                if (lockTaken)
+                {
+                    Monitor.Exit(_dbLock);
+                }
+            }
+
         }
 
     }

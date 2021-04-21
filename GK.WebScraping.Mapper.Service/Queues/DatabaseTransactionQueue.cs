@@ -93,7 +93,6 @@ namespace GK.WebScraping.Mapper.Service.Queues
         private void InitContext(Guid operationID, DbContextOptions<WebScrapingContext> options = null)
         {
             WebScrapingContext newContext = options == null ? new WebScrapingContext() : new WebScrapingContext(options);
-            newContext.Database.AutoTransactionsEnabled = false;
             this._activeContexts.Add(operationID, newContext);
         }
 

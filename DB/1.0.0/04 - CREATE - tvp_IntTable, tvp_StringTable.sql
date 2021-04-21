@@ -8,7 +8,7 @@ CREATE TYPE tvp_IntTable AS TABLE
 GO
 CREATE TYPE tvp_StringTable AS TABLE 
 (
-	[value] varchar(max) null
+	[value] varchar(900) null
 )
 GO
 

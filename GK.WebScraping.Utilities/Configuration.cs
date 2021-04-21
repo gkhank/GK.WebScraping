@@ -62,6 +62,7 @@ namespace GK.WebScraping.Utilities
     {
         public int NumberOfThreads { get; set; }
         public int Capacity { get; set; }
+        public int TresholdReachedSleepMiliseconds { get; set; }
     }
 
     public class ApplicationQueuesConfig

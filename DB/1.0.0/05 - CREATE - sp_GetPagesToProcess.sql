@@ -27,7 +27,6 @@ BEGIN
     FROM 
         [Page]
 
-		WITH (XLOCK)
 		LEFT JOIN
 		@excludingMap [ExcludingMapStatuses]
 		ON ([ExcludingMapStatuses].value = [Page].mapStatus)
