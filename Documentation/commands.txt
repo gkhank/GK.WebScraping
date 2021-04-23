@@ -13,6 +13,10 @@ dotnet publish -c Release -o c:\temp\GK.WebScraping --self-contained true
 3- Restart service GK.WebScraping
 
 
+**** Publish on server directly.
+dotnet publish -c Release -o \\192.168.1.246\GKMedia\Services\GK.WebScraping
+
+
 Db connection test function for powershell;
 
 function Test-SQLConnection

@@ -106,7 +106,7 @@ namespace GK.WebScraping.Utilities
 
         public String GetHtmlContent(String url)
         {
-            return Client.Get(url, true);
+            return Client.Get(url, Configuration.Instance.Services.ReaderService.UseProxy);
         }
 
         public string UrlEncode(string url)

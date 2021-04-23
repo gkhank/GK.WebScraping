@@ -51,6 +51,7 @@ namespace GK.WebScraping.Utilities
         public int IterationSleep { get; set; }
         public string OperationStartTime { get; set; }
         public string OperationStopTime { get; set; }
+        public bool UseProxy{ get; set; }
     }
 
     public class ServiceConfig
