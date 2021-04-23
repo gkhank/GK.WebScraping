@@ -26,13 +26,14 @@ namespace GK.WebScraping.Mapper.Service
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
             return Host.CreateDefaultBuilder(args)
-                 .ConfigureServices((hostContext, services) =>
-                 {
-                     services.AddDbContext<WebScrapingContext>();
-                     services.AddHostedService<ReaderService>();
-                     services.AddMemoryCache();
-                     //services.AddHostedService<Mapper>();
-                 });
+                     .UseWindowsService()
+                     .ConfigureServices((hostContext, services) =>
+                     {
+                         services.AddDbContext<WebScrapingContext>();
+                         services.AddHostedService<ReaderService>();
+                         services.AddMemoryCache();
+                         //services.AddHostedService<Mapper>();
+                     });
         }
     }
 }

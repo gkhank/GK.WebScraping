@@ -1,6 +1,11 @@
+D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\CoverletSourceRootsMapping
+D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\testhost.dll
+D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\testhost.exe
+D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\Microsoft.TestPlatform.PlatformAbstractions.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\Microsoft.TestPlatform.AdapterUtilities.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\GK.WebScraping.Test.deps.json
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\GK.WebScraping.Test.runtimeconfig.json
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\GK.WebScraping.Test.runtimeconfig.dev.json
@@ -29,13 +34,11 @@ D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\Microso
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\Microsoft.TestPlatform.CoreUtilities.dll
-D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\Microsoft.TestPlatform.PlatformAbstractions.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\Microsoft.TestPlatform.CommunicationUtilities.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\Microsoft.TestPlatform.CrossPlatEngine.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\Microsoft.TestPlatform.Utilities.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.Common.dll
-D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\testhost.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\Microsoft.Win32.Registry.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\Microsoft.Win32.Registry.AccessControl.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
@@ -222,6 +225,3 @@ D:\Projects\GK.WebScraping\GK.WebScraping.Test\obj\Release\netcoreapp3.1\GK.WebS
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\obj\Release\netcoreapp3.1\GK.WebScraping.Test.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\obj\Release\netcoreapp3.1\GK.WebScraping.Test.pdb
 D:\Projects\GK.WebScraping\GK.WebScraping.Test\obj\Release\netcoreapp3.1\GK.WebScraping.Test.genruntimeconfig.cache
-D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\CoverletSourceRootsMapping
-D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\testhost.exe
-D:\Projects\GK.WebScraping\GK.WebScraping.Test\bin\Release\netcoreapp3.1\Microsoft.TestPlatform.AdapterUtilities.dll

@@ -20,6 +20,7 @@ namespace GK.WebScraping.Mapper.Service.Thread
     {
         private readonly HtmlUtilities _htmlUtils;
         private readonly int _bulkSize;
+        private static readonly object _webClientLock = new object();
         private DateTime _lastAcceptableReadDate;
 
         protected override string ThreadName { get; set; }
@@ -316,14 +317,29 @@ namespace GK.WebScraping.Mapper.Service.Thread
 
         private void UpdateFileFromRemote(Guid storeID, String rootUrl, String url, String fullPath)
         {
-            String html = this._htmlUtils.GetHtmlContent(url);
 
-            var htmlLinks = this._htmlUtils.GetLinksInHtml(html, rootUrl);
+            Boolean lockTaken = false;
 
-            this.CommitPageLinks(storeID, htmlLinks);
+            try
+            {
+                Monitor.Enter(_webClientLock, ref lockTaken);
 
-            FileOperation operation = FileOperation.Create(fullPath, FileOperation.OperationType.CreateOrUpdate, html);
-            FileOperationsQueue.Instance.Enqueue(operation);
+                if (lockTaken)
+                {
+                    String html = this._htmlUtils.GetHtmlContent(url);
+
+                    var htmlLinks = this._htmlUtils.GetLinksInHtml(html, rootUrl);
+
+                    this.CommitPageLinks(storeID, htmlLinks);
+
+                    FileOperation operation = FileOperation.Create(fullPath, FileOperation.OperationType.CreateOrUpdate, html);
+                    FileOperationsQueue.Instance.Enqueue(operation);
+                }
+            }
+            finally
+            {
+                Monitor.Exit(_webClientLock);
+            }
         }
         private void UpdateReadDate(Page page, DateTime updateDate)
         {

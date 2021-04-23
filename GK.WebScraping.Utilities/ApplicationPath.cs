@@ -20,7 +20,7 @@ namespace GK.WebScraping.Utilities
                 switch (Environment.MachineName)
                 {
                     case "GK-WS1":
-                        return "C:\\Program Files (x86)\\GKMedia\\Services";
+                        return "C:\\Program Files (x86)\\GKMedia\\Services\\GK.WebScraping";
 
                     case "GK_DESKTOP":
                         return "D:\\Projects\\GK.WebScraping";

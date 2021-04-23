@@ -1,0 +1,40 @@
+For developer release...
+sc.exe create GK.WebScraping binpath= D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Release\netcoreapp3.1\GK.WebScraping.Mapper.Service.exe
+
+
+For server release...
+
+
+1- Run this and copy files in server from this temp directory
+dotnet publish -c Release -o c:\temp\GK.WebScraping --self-contained true
+
+2- To 'C:\Program Files (x86)\GKMedia\Services' in server 'GK-WS1'
+
+3- Restart service GK.WebScraping
+
+
+Db connection test function for powershell;
+
+function Test-SQLConnection
+{
+    [OutputType([string])]
+    Param
+    (
+        [Parameter(Mandatory=$true,
+                    ValueFromPipelineByPropertyName=$true,
+                    Position=0)]
+        $ConnectionString
+    )
+    try
+    {
+        $sqlConnection = New-Object System.Data.SqlClient.SqlConnection $ConnectionString;
+        $sqlConnection.Open();
+        $sqlConnection.Close();
+
+        return $true;
+    }
+    catch [System.Exception]
+    {
+        return $_ 
+    }
+}

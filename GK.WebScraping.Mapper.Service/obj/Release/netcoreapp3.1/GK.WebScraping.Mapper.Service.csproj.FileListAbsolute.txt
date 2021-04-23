@@ -31,6 +31,7 @@ D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Release\netcoreapp3
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Release\netcoreapp3.1\Microsoft.Extensions.FileSystemGlobbing.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Release\netcoreapp3.1\Microsoft.Extensions.Hosting.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Release\netcoreapp3.1\Microsoft.Extensions.Hosting.Abstractions.dll
+D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Release\netcoreapp3.1\Microsoft.Extensions.Hosting.WindowsServices.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Release\netcoreapp3.1\Microsoft.Extensions.Logging.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Release\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Release\netcoreapp3.1\Microsoft.Extensions.Logging.Configuration.dll
@@ -95,6 +96,7 @@ D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Release\netcoreapp3
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Release\netcoreapp3.1\System.ServiceProcess.ServiceController.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Release\netcoreapp3.1\System.Speech.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Release\netcoreapp3.1\System.Text.Encoding.CodePages.dll
+D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Release\netcoreapp3.1\System.Text.Json.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Release\netcoreapp3.1\System.Threading.AccessControl.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Release\netcoreapp3.1\System.Windows.Extensions.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Release\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
@@ -165,4 +167,5 @@ D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Release\netcoreapp3
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Release\netcoreapp3.1\GK.WebScraping.Mapper.Service.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Release\netcoreapp3.1\GK.WebScraping.Mapper.Service.pdb
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Release\netcoreapp3.1\GK.WebScraping.Mapper.Service.genruntimeconfig.cache
-D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Release\netcoreapp3.1\System.Text.Json.dll
+D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\bin\Release\netcoreapp3.1\GK.WebScraping.Mapper.Service.dll.config
+D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Release\netcoreapp3.1\GK.WebScraping.Mapper.Service.dll.config

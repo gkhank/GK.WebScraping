@@ -21,6 +21,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{B038C5
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{1DD15D03-BD9E-4C37-9A6A-3893CEEC932C}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\commands.txt = Documentation\commands.txt
+		Documentation\scaffolding.txt = Documentation\scaffolding.txt
+		Documentation\topitosoloji.png = Documentation\topitosoloji.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

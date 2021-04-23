@@ -106,8 +106,7 @@ namespace GK.WebScraping.Utilities
 
         public String GetHtmlContent(String url)
         {
-            //Only use proxy on live...
-            return Client.Get(url, Environment.MachineName == "GK-WS1");
+            return Client.Get(url, true);
         }
 
         public string UrlEncode(string url)

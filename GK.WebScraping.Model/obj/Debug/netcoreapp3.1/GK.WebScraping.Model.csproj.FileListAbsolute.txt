@@ -15,4 +15,3 @@ D:\Projects\GK.WebScraping\GK.WebScraping.Model\obj\Debug\netcoreapp3.1\GK.WebSc
 D:\Projects\GK.WebScraping\GK.WebScraping.Model\obj\Debug\netcoreapp3.1\GK.WebScraping.Model.csproj.CoreCompileInputs.cache
 D:\Projects\GK.WebScraping\GK.WebScraping.Model\obj\Debug\netcoreapp3.1\GK.WebScraping.Model.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Model\obj\Debug\netcoreapp3.1\GK.WebScraping.Model.pdb
-D:\Projects\GK.WebScraping\GK.WebScraping.Model\obj\Debug\netcoreapp3.1\GK.WebScraping.Model.csprojAssemblyReference.cache

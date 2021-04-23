@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "TjmzJ9+2pXHhypWCb/mDcX0708g7E74DVeN3iJzBZ3svKF2+0UxtHC4LFcjiMkfB+5IfuDb7SDjyu/dfy68fGw==",
+  "dgSpecHash": "EVOGLOJ18s2eeDwRerDY8d9lluM8P+XXXhptNlUQLXHUHw0aqAiCof9OrTpLbCALL9aESfZQ35ofZYCGVlHdCQ==",
   "success": true,
   "projectFilePath": "D:\\Projects\\GK.WebScraping\\GK.WebScraping.Mapper.Service\\GK.WebScraping.Mapper.Service.csproj",
   "expectedPackageFiles": [
@@ -32,6 +32,7 @@
     "C:\\Users\\gkhan\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\5.0.0\\microsoft.extensions.filesystemglobbing.5.0.0.nupkg.sha512",
     "C:\\Users\\gkhan\\.nuget\\packages\\microsoft.extensions.hosting\\5.0.0\\microsoft.extensions.hosting.5.0.0.nupkg.sha512",
     "C:\\Users\\gkhan\\.nuget\\packages\\microsoft.extensions.hosting.abstractions\\5.0.0\\microsoft.extensions.hosting.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\gkhan\\.nuget\\packages\\microsoft.extensions.hosting.windowsservices\\5.0.1\\microsoft.extensions.hosting.windowsservices.5.0.1.nupkg.sha512",
     "C:\\Users\\gkhan\\.nuget\\packages\\microsoft.extensions.logging\\5.0.0\\microsoft.extensions.logging.5.0.0.nupkg.sha512",
     "C:\\Users\\gkhan\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\5.0.0\\microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\gkhan\\.nuget\\packages\\microsoft.extensions.logging.configuration\\5.0.0\\microsoft.extensions.logging.configuration.5.0.0.nupkg.sha512",
