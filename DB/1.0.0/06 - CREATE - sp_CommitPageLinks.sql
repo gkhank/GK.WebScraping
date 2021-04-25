@@ -8,7 +8,7 @@ BEGIN
 	SELECT
 		[value] as [url],
 		@storeID,
-		GETDATE(),
+		NULL,
 		GETDATE(),
 		NULL,
 		1,

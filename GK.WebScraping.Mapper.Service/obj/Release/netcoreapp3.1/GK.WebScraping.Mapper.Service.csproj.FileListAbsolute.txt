@@ -164,8 +164,8 @@ D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Release\netcoreapp3
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Release\netcoreapp3.1\GK.WebScraping.Mapper.Service.dll.config
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Release\netcoreapp3.1\GK.WebScraping.Mapper.Service.AssemblyInfoInputs.cache
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Release\netcoreapp3.1\GK.WebScraping.Mapper.Service.AssemblyInfo.cs
-D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Release\netcoreapp3.1\GK.WebScraping.Mapper.Service.csproj.CoreCompileInputs.cache
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Release\netcoreapp3.1\GK.WebScraping.Mapper.Service.csproj.CopyComplete
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Release\netcoreapp3.1\GK.WebScraping.Mapper.Service.dll
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Release\netcoreapp3.1\GK.WebScraping.Mapper.Service.pdb
 D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Release\netcoreapp3.1\GK.WebScraping.Mapper.Service.genruntimeconfig.cache
+D:\Projects\GK.WebScraping\GK.WebScraping.Mapper.Service\obj\Release\netcoreapp3.1\GK.WebScraping.Mapper.Service.csproj.CoreCompileInputs.cache

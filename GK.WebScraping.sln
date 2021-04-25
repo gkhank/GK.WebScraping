@@ -18,6 +18,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{B038C533-5DB7-4E50-B075-7B80716BC64F}"
 	ProjectSection(SolutionItems) = preProject
 		Resources\Config\config.json = Resources\Config\config.json
+		Resources\Config\proxy.txt = Resources\Config\proxy.txt
 		README.md = README.md
 	EndProjectSection
 EndProject

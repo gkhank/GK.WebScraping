@@ -36,7 +36,21 @@ namespace GK.WebScraping.Utilities
             String[] pieces = host.Split(':');
 
             EventLog.WriteEntry(this.ToString(), String.Format("Selected proxy server '{0}'.", host), EventLogEntryType.Information);
-            return new WebProxy(pieces[0], Int32.Parse(pieces[1]));
+
+            WebProxy retval = new WebProxy(pieces[0], Int32.Parse(pieces[1]));
+
+            if (pieces.Length > 2)
+            {
+                NetworkCredential credentials = new NetworkCredential(
+                    pieces[2],
+                    pieces[3]
+                );
+
+                retval.Credentials = credentials;
+            }
+
+
+            return retval;
         }
 
         private double GetAverage(decimal n1, short n2, short n3)

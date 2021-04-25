@@ -11,6 +11,7 @@
           "GK.WebScraping.DB": "1.0.0",
           "GK.WebScraping.Utilities": "1.0.0",
           "Microsoft.EntityFrameworkCore.Design": "5.0.5",
+          "Microsoft.Extensions.FileSystemGlobbing": "5.0.0",
           "Microsoft.Extensions.Hosting": "5.0.0",
           "Microsoft.Extensions.Hosting.WindowsServices": "5.0.1"
         },
